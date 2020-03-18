@@ -5,7 +5,8 @@ module.exports = {
   },
   extends: [
     'plugin:vue/essential',
-    'standard'
+    'standard',
+    '@nuxtjs/eslint-config-typescript'
   ],
   globals: {
     Atomics: 'readonly',
