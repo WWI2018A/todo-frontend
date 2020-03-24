@@ -6,6 +6,11 @@
       <Todo v-for="todo in todos"
             v-bind:todo="todo"/>
     </ul>
+    <form>
+    <button type="button">bearbeiten</button>
+    <button type="button">löschen</button>
+    <input type="button" value="zurück" onclick="history.go(-1)">
+    </form>
   </section>
 </template>
 
@@ -35,7 +40,11 @@
         }
       });
     }
+    
   }
+
+
+
 </script>
 
 <style scoped>
