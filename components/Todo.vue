@@ -1,7 +1,12 @@
 <template>
   <li>
     <p>{{todo.content}}</p>
-        <p>bis {{todo.dueDate}}</p>
+      <form>
+        <input type="checkbox">
+        <button type="button">löschen</button>
+        <button type="button">bis {{todo.dueDate}}</button>
+        <button type="button">bearbeiten</button>
+      </form>
   </li>
 </template>
 
