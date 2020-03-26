@@ -1,0 +1,8 @@
+{
+  "realm": "todo",
+  "auth-server-url": "https://193.196.55.125:8443/auth/",
+  "ssl-required": "external",
+  "resource": "vue-test-app",
+  "public-client": true,
+  "confidential-port": 0
+}

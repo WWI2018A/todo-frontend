@@ -14,7 +14,9 @@
     "@nuxtjs/axios": "^5.3.6",
     "cross-env": "^5.2.0",
     "express": "^4.17.1",
+    "keycloak-js": "^9.0.2",
     "nuxt": "^2.0.0",
+    "plugin-vuejs-keycloak": "0.0.2",
     "typescript": "^3.8.3"
   },
   "devDependencies": {
