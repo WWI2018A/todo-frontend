@@ -1,20 +1,20 @@
 <template>
   <li>
-    <p>{{todo.content}}</p>
-    <div id="todo-buttons">
-      <input type="checkbox">
+    <div>
+      <p>{{todo.content}}</p>
+      <label>
+        <input type="checkbox">
+      </label>
       <button type="button">löschen</button>
       <button type="button">bis {{todo.dueDate}}</button>
-      <button type="button" v-on:click="bearbeiten">{{buttonLabel}}</button>
+      <button type="button" v-on:click="editTodo">{{buttonLabel}}</button>
     </div>
   </li>
 </template>
 
 <script>
-  import Vue from "vue";
-
   export default {
-    name: "Todo",
+    name: 'Todo',
 
     // props: ['id', 'createdDate', 'lastModifiedDate', 'userId', 'listId', 'dueDate', 'status', 'content']
 
@@ -29,21 +29,25 @@
       }
     },
 
-  }
-
-  var todoButtons = new Vue({
-    el:'#todo-buttons',
-    data:{
-      buttonLabel: "Bearbeiten"
-    },
-    methods:{
-      bearbeiten: function(event) {
-        alert("Hallo");
-        console.log("Hallo");
-        buttonLabel = "Test";
+    data() {
+      return {
+        buttonLabel: 'Bearbeiten'
       }
-    }
-  })
+    },
+
+    methods: {
+      editTodo() {
+        if (this.buttonLabel === 'Bearbeiten') {
+          this.buttonLabel = 'Speichern';
+        } else {
+          // post an to do service schicken
+          console.log(JSON.stringify(this.todo));
+          this.buttonLabel = 'Bearbeiten';
+        }
+      }
+
+    },
+  }
 </script>
 
 <style scoped>

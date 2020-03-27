@@ -15,7 +15,8 @@
     "cross-env": "^5.2.0",
     "express": "^4.17.1",
     "nuxt": "^2.0.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "vue": "latest"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",
