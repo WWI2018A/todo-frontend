@@ -41,6 +41,8 @@
           this.buttonLabel = 'Speichern';
         } else {
           // post an to do service schicken
+          // Content des to dos ändern hier als Beispiel Test
+          this.todo.content = 'Test';
           console.log(JSON.stringify(this.todo));
           this.buttonLabel = 'Bearbeiten';
         }
