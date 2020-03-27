@@ -1,16 +1,18 @@
 <template>
   <li>
     <p>{{todo.content}}</p>
-      <form>
-        <input type="checkbox">
-        <button type="button">löschen</button>
-        <button type="button">bis {{todo.dueDate}}</button>
-        <button type="button">bearbeiten</button>
-      </form>
+    <div id="todo-buttons">
+      <input type="checkbox">
+      <button type="button">löschen</button>
+      <button type="button">bis {{todo.dueDate}}</button>
+      <button type="button" v-on:click="bearbeiten">{{buttonLabel}}</button>
+    </div>
   </li>
 </template>
 
 <script>
+  import Vue from "vue";
+
   export default {
     name: "Todo",
 
@@ -28,6 +30,20 @@
     },
 
   }
+
+  var todoButtons = new Vue({
+    el:'#todo-buttons',
+    data:{
+      buttonLabel: "Bearbeiten"
+    },
+    methods:{
+      bearbeiten: function(event) {
+        alert("Hallo");
+        console.log("Hallo");
+        buttonLabel = "Test";
+      }
+    }
+  })
 </script>
 
 <style scoped>
