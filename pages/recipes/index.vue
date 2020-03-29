@@ -52,6 +52,7 @@
 <style scoped>
   .recipes {
     display: flex;
+    shape-outside: -moz-element(3);
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
