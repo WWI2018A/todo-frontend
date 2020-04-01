@@ -8,3 +8,4 @@
     <nuxt-link to="/todoLists">Zur Todo Listen Ansicht</nuxt-link>
   </section>
 </template>
+

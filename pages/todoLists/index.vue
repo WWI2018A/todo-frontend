@@ -1,6 +1,6 @@
 <template>
   <section>
-    <TodoListItem v-for='todoListItem in todoLists'
+    <TodoListItem v-for='todoListItem in todoLists' :key="todoListItem"
                   v-bind:todo-list="todoListItem">
     </TodoListItem>
   </section>
