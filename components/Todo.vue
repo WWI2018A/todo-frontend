@@ -2,36 +2,20 @@
   <li>
     <div>
       <label>
-       <input type="text" id="todoID" disabled>
-       {{todo.content}}
+       <input type="text" v-model="todo.content" v-bind:id="'ToDo' + todo.id" disabled>
+       bis
       </label>
-      <input type="checkbox" v-on:click="updateCheck" id="todoCheckID">
-      <button type="button" v-on:click="deleteTodo">löschen</button>
-      <button type="button">bis {{todo.dueDate}}</button>
+      <input type="datetime-local" v-model="todoDate" v-bind:id="'Date' + todo.id" disabled/>
+      <!-- <button type="button">bis {{todo.dueDate}}</button> -->
+      <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck" v-bind:id="'Check' + todo.id" checked>
+      <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id">
       <button type="button" v-on:click="editTodo">{{buttonLabel}}</button>
+      <button type="button" v-on:click="deleteTodo">löschen</button>
     </div>
   </li>
 </template>
 
 <script>
-  // window.onload = onPageLoad();
-
-  // function onPageLoad() {
-  //   if (todo.status == "COMPLETED") {
-  //     document.getElementById("todoCheckID").checked == true;
-  //   } else {
-  //     document.getElementById("todoCheckID").checked == false;
-  //   }
-  // }
-
-  // window.addEventListener("load", function(event) {
-  //   if (todo.status == "COMPLETED") {
-  //     document.getElementById("todoCheckID").checked == true;
-  //   } else {
-  //     document.getElementById("todoCheckID").checked == false;
-  //   }
-  // });
-  
   export default {
     name: 'Todo',
 
@@ -44,13 +28,15 @@
         lastModifiedDate: Date,
         userId: String,
         dueDate: Date,
+        status: String,
         content: String,
       }
     },
 
     data() {
       return {
-        buttonLabel: 'Bearbeiten'
+        buttonLabel: 'Bearbeiten',
+        todoDate: this.todo.dueDate.substr(0,16)
       }
     },
 
@@ -58,28 +44,39 @@
       editTodo() {
         if (this.buttonLabel === 'Bearbeiten') {
           this.buttonLabel = 'Speichern';
-          document.getElementById("todoID").disabled = false;
+          // enable todo-label
+          document.getElementById('ToDo' + this.todo.id).disabled = false;
+          // enable todo-date
+          document.getElementById('Date' + this.todo.id).disabled = false;
         } else {
           // post an to do service schicken
-          // Content des to dos ändern hier als Beispiel Test
-          this.todo.content = 'Test';
+          // Content des to dos ändern
+          this.todo.content = document.getElementById('ToDo' + this.todo.id).value;
+          this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ":00.000+0000";
           console.log(JSON.stringify(this.todo));
           this.buttonLabel = 'Bearbeiten';
-          document.getElementById("todoID").disabled = true;
+          // disable todo-label
+          document.getElementById('ToDo' + this.todo.id).disabled = true;
+          // disable todo-date
+          document.getElementById('Date' + this.todo.id).disabled = true;
         }
       },
 
       deleteTodo() {
-        console.log("Send Request to delete the Todo " + this.todo.content)
+        console.log('Send Request to delete the Todo ' + this.todo.content)
       },
       
       updateCheck() {
-        if(document.getElementById("todoCheckID").checked == true) {
-          console.log("Ist erledigt")
+        if(document.getElementById('Check' + this.todo.id).checked == true) {
+          console.log('Ist erledigt')
+          this.todo.status = 'COMLETED';
+          console.log(JSON.stringify(this.todo));
         } else {
-          console.log("Ist nicht erledigt")
+          console.log('Ist nicht erledigt')
+          this.todo.status = 'NONE';
+          console.log(JSON.stringify(this.todo));
         }
-      }
+      },
     },
 
   }
