@@ -1,52 +1,64 @@
 <template>
   <section>
-    <h1>Listenname: </h1>
-    <h2>Enthaltene Todos:</h2>
-    <ul>
-      <Todo v-for="todo in todos"
-            v-bind:todo="todo"/>
-    </ul>
-    <form>
-    <button type="button">bearbeiten</button>
+    <!--<TodoListItem
+                  v-bind:todo-list="todolists">
+    </TodoListItem>-->
+      <h1>Listenname: {{headline}} </h1>
+      <h2>Enthaltene Todos:</h2>
+     <ul>
+          <!--<Todo v-for="todo in todolists" 
+          v-bind:todo="todo"/>-->
+      </ul>
+      <form>
+    <button type="button">todo hinzufügen</button>
+    <button type="button" v-on:click="edittodoList">{{buttonLable}}</button>
     <button type="button">löschen</button>
     <input type="button" value="zurück" onclick="history.go(-1)">
     </form>
+      
   </section>
 </template>
-
+ 
 <script>
   import axios from 'axios';
   import Todo from "../../components/Todo";
-
+  //import TodoListItem from "../../components/TodoListItem";
+  const API_URL = 'http://localhost:3000';
+ 
   export default {
-    components: {Todo},
-
+    name: 'todoLists',
+    
+    components: {
+      Todo,
+      //TodoListItem
+    },
+ 
     // TodoList um den Namen der jeweiligen Liste über den Todos anzuzeigen --> funzt noch nicht
     props: {
-      todoList: {
+      //todoLists: {
         id: String,
         createdDate: Date,
         lastModifiedDate: Date,
         userId: String,
-        name: String
-      },
+        name: String,
+        //todos:Todo,
+        //headline:String
+      //}
     },
-
-    asyncData(context) {
-      // Todos der jeweiligen Liste abrufen
-      return axios.get('http://localhost:3000/todo-mock-json/GET/Todos/GetTodosResponse.json').then((res) => {
-        return {
-          todos: res.data
-        }
-      });
-    }
     
-  }
-
-
-
-</script>
-
-<style scoped>
-
-</style>
+   
+asyncData(context) {
+    
+     //Listenname herausfinden
+      return axios.get('/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json')
+      .then(res => {
+        return {
+         headline : res.data.name
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally()
+}} 
+  </script>

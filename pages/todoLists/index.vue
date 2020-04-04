@@ -11,21 +11,39 @@
   import axios from 'axios';
 
   export default {
-    name: 'todoLists',
-
+    
     components: {
       TodoListItem
     },
+
 
     // Listen abrufen
     asyncData() {
       return axios.get('http://localhost:3000/todo-mock-json/GET/TodoLists/GetTodosListsResponse.json').then(res => {
         return {
           todoLists: res.data
-        };
+        }
+
       });
+
     }
+
   }
+      
+
+        /*return axios.get('http://localhost:3000/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json').then((res) => {
+        return {
+          todoLists: res.name
+
+      }
+          
+        });
+      });
+        
+     */ 
+      
+  
+  
 
 
 </script>
