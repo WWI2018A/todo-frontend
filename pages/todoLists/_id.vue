@@ -9,6 +9,8 @@
           <!--<Todo v-for="todo in todolists" 
           v-bind:todo="todo"/>-->
       </ul>
+       <input type="text" v-model="todo.content" v-bind:id="'ToDo' + todo.id" disabled>
+     
       <form>
     <button type="button">todo hinzufügen</button>
     <button type="button" v-on:click="edittodoList">{{buttonLable}}</button>
@@ -45,6 +47,8 @@
         //headline:String
       //}
     },
+
+   
     
    
 asyncData(context) {
