@@ -1,59 +1,58 @@
 <template>
-  <section>
-    <!--<TodoListItem
-                  v-bind:todo-list="todolists">
-    </TodoListItem>-->
-      <h1>Listenname: {{headline} </h1>
-      <h2>Enthaltene Todos:</h2>
-     <ul>
-          <!--<Todo v-for="todo in todolists" 
-          v-bind:todo="todo"/>-->
-      </ul>
-      <li>
-      <div> 
-      <lable>
-       <input type="text" v-model="todoList.name" v-bind:id="'Listenname' + todoList.id" disabled>
+<section>
+<!--<TodoListItem
+ v-bind:todo-list="todolists">
+ </TodoListItem>-->
+ <lable> Listenname: 
+      <input type="text" v-model="headline" id= "listid" disabled>
       </lable>
+<h2>Enthaltene Todos:</h2>
+<ul>
+<!--<Todo v-for="todo in todolists" 
+ v-bind:todo="todo"/>-->
+</ul>
+  <li>
+    <div> 
       <form>
     <button type="button">todo hinzufügen</button>
-    <button type="button" v-on:click="editListname">{{buttonLable}}</button>
-    <button type="button" v-on:click="deleteListname">löschen</button>
+    <button type="button" v-on:click="editListname">{{buttonLabel}}</button>
+    <button type="button">löschen</button>
     <input type="button" value="zurück" onclick="history.go(-1)">
     </form>
-      </div>
+    </div>
       </li>
-  </section>
+
+</section>
 </template>
- 
+
 <script>
-  import axios from 'axios';
-  import Todo from "../../components/Todo";
-  import TodoListItem from "../../components/TodoListItem";
-  const API_URL = 'http://localhost:3000';
- 
-  export default {
-    name: 'todoLists',
-  
-    
-    components: {
-      Todo,
-      TodoListItem
-    },
- 
-    // TodoList um den Namen der jeweiligen Liste über den Todos anzuzeigen --> funzt noch nicht
-    props: {
-      todoList: {
-        id: String,
-        createdDate: Date,
-        lastModifiedDate: Date,
-        userId: String,
-        name: String,
-        //todos:Todo,
-        //headline:String
-      }
-    },
-    
-    data() {
+import axios from 'axios';
+import Todo from "../../components/Todo";
+import TodoListItem from "../../components/TodoListItem";
+const API_URL = 'http://localhost:3000';
+
+export default {
+name:'todoLists',
+
+components: {
+Todo,
+TodoListItem
+ },
+
+// TodoList um den Namen der jeweiligen Liste über den Todos anzuzeigen --> funzt noch nicht
+props: {
+todoList: {
+id:String,
+createdDate:Date,
+lastModifiedDate:Date,
+userId:String,
+name:String,
+//todos:Todo,
+//headline:String
+}
+ },
+
+ data() {
       return {
         buttonLabel: 'Bearbeiten',
         
@@ -61,20 +60,20 @@
     },
 
     methods: {
-      editTodo() {
+      editListname() {
         if (this.buttonLabel === 'Bearbeiten') {
           this.buttonLabel = 'Speichern';
           // enable todo-label
-          document.getElementById('Listenname' + this.todoList.id).disabled = false;
+          document.getElementById("listid").disabled = false;
           
         } else {
           // post an to do service schicken
           // Content des to dos ändern
-          this.todoList.name = document.getElementById('Listenname' + this.todoList.id).value;
+          this.headline = document.getElementById("listid").value;
           console.log(JSON.stringify(this.todoList));
           this.buttonLabel = 'Bearbeiten';
           // disable todo-label
-          document.getElementById('Listename' + this.todoList.id).disabled = true;
+          document.getElementById("listid").disabled = true;
          
         }
       },
@@ -96,19 +95,22 @@
       },*/
     },
 
-   
+
+
 asyncData(context) {
-    
-     //Listenname herausfinden
-      return axios.get('/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json')
-      .then(res => {
-        return {
-         todolists : res.data
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
-      .finally()
+
+//Listenname herausfinden
+return axios.get('/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json')
+ .then(res=> {
+return {
+headline :res.data.name,
+
+ }
+ })
+ .catch(error=> {
+console.log(error)
+ })
+ .finally()
 }} 
-  </script>
+</script>
+
