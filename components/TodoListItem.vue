@@ -11,8 +11,8 @@
     props: {
       todoList: {
         id: String,
-        createdDate: Date,
-        lastModifiedDate: Date,
+        //createdDate: Date,
+        //lastModifiedDate: Date,
         userId: String,
         name: String
       }
