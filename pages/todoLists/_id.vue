@@ -86,7 +86,7 @@ export default {
     },
 
     deleteList() {
-        console.log('Send Request to delete the TodoList ' + this.todoList.name)
+        console.log('Send Request to delete the TodoList ' + this.todoList.data)
       },
   },
 
