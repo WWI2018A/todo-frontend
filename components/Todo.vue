@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+//const API_URL = 'http://localhost:3000'
   export default {
     name: 'Todo',
 
@@ -59,11 +61,29 @@
           document.getElementById('ToDo' + this.todo.id).disabled = true;
           // disable todo-date
           document.getElementById('Date' + this.todo.id).disabled = true;
+
+          //axios put request to modify the content and the duedate of the todo
+          axios.put("https://jsonplaceholder.typicode.com/users/1",{
+          content:this.todo.content,
+          dueDate:this.todo.dueDate
+        })
+        .then(res =>{
+          console.log(res.data)
+        })
+
         }
+
+
       },
 
       deleteTodo() {
         console.log('Send Request to delete the Todo ' + this.todo.content)
+
+        //axios delete request to delete the todo
+        axios.delete("https://jsonplaceholder.typicode.com/users/4")
+        .then(function(res){
+          console.log(res.data);
+        })
       },
       
       updateCheck() {
@@ -76,6 +96,14 @@
           this.todo.status = 'NONE';
           console.log(JSON.stringify(this.todo));
         }
+
+        //axios put request to modify the status of the todo
+        axios.put("https://jsonplaceholder.typicode.com/users/1",{
+          status:this.todo.status
+        })
+        .then(res =>{
+          console.log(res.data)
+        })
       },
     },
 
