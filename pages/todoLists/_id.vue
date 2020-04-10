@@ -16,10 +16,12 @@
     <li>
       <div>
         <form>
-          <button type="button">todo hinzufügen</button>
+          <button type="button" v-on:click="addTodo">todo hinzufügen </button>
           <button type="button" v-on:click="editListname">{{buttonLabel}}</button>
           <button type="button" v-on:click="deleteList">löschen</button>
           <input type="button" value="zurück" onclick="history.go(-1)" />
+
+
         </form>
       </div>
     </li>
@@ -88,6 +90,10 @@ export default {
     deleteList() {
         console.log('Send Request to delete the TodoList ' + this.todoList.data)
       },
+    
+    addTodo() {
+      console.log('Send Request to add todo to TodoList ' + this.todo.data)
+    }
   },
 
   /*asyncData(context) {
