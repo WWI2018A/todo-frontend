@@ -7,6 +7,7 @@
       <label>
         Listenname:
         <input type="text" v-model="todoList.name" id="listid" disabled />
+      
       </label>
     </h1>
     <h2>Enthaltene Todos:</h2>
@@ -16,10 +17,10 @@
     <li>
       <div>
         <form>
-          <button type="button" v-on:click="addTodo">todo hinzufügen </button>
-          <button type="button" v-on:click="editListname">{{buttonLabel}}</button>
-          <button type="button" v-on:click="deleteList">löschen</button>
-          <input type="button" value="zurück" onclick="history.go(-1)" />
+          <button type="button" class="btn btn-outline-primary" v-on:click="addTodo">todo hinzufügen </button>
+          <button type="button" class="btn btn-outline-primary" v-on:click="editListname">{{buttonLabel}}</button>
+          <button type="button" class="btn btn-outline-primary" v-on:click="deleteList">löschen</button>
+          <input type="button"  class="btn btn-outline-primary" value="zurück" onclick="history.go(-1)" />
 
 
         </form>
@@ -66,7 +67,8 @@ export default {
       name: String
       //todos:Todo,
       //headline: String
-    }
+    },
+    
     };
   },
 
@@ -92,7 +94,7 @@ export default {
       },
     
     addTodo() {
-      console.log('Send Request to add todo to TodoList ' + this.todo.data)
+      console.log('Send Request to add Todo to TodoList ' + this.todo.content)
     }
   },
 
