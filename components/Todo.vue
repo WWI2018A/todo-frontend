@@ -2,12 +2,13 @@
   <li>
     <div>
       <label>
-       <input type="text" v-model="todo.content" v-bind:id="'ToDo' + todo.id" disabled>
-       bis
+        <input type="text" v-model="todo.content" v-bind:id="'ToDo' + todo.id" disabled>
+        bis
       </label>
       <input type="datetime-local" v-model="todoDate" v-bind:id="'Date' + todo.id" disabled/>
       <!-- <button type="button">bis {{todo.dueDate}}</button> -->
-      <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck" v-bind:id="'Check' + todo.id" checked>
+      <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck" v-bind:id="'Check' + todo.id"
+             checked>
       <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id">
       <button type="button" v-on:click="editTodo">{{buttonLabel}}</button>
       <button type="button" v-on:click="deleteTodo">löschen</button>
@@ -20,7 +21,7 @@
     name: 'Todo',
 
     // props: ['id', 'createdDate', 'lastModifiedDate', 'userId', 'listId', 'dueDate', 'status', 'content']
-props: {
+    props: {
       todo: {
         id: String,
         createdDate: Date,
@@ -31,12 +32,12 @@ props: {
         content: String,
       }
     },
-    
+
 
     data() {
       return {
         buttonLabel: 'Bearbeiten',
-        todoDate: this.todo.dueDate.substr(0,16)
+        // todoDate: this.todo.dueDate.substr(0,16)
       }
     },
 
@@ -65,9 +66,9 @@ props: {
       deleteTodo() {
         console.log('Send Request to delete the Todo ' + this.todo.content)
       },
-      
+
       updateCheck() {
-        if(document.getElementById('Check' + this.todo.id).checked == true) {
+        if (document.getElementById('Check' + this.todo.id).checked == true) {
           console.log('Ist erledigt')
           this.todo.status = 'COMLETED';
           console.log(JSON.stringify(this.todo));
