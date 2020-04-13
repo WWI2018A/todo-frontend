@@ -1,48 +1,22 @@
-import * as Keycloak from 'keycloak-js'
+import VueKeycloakJs from '@dsb-norge/vue-keycloak-js'
+import Vue from 'vue'
+import App from '../pages/index.vue'
+import router from './router'
 
+Vue.config.productionTip = false
 
-
-var keycloak = new Keycloak({
-  url: 'https://193.196.55.125:8443/auth/',
-  realm: 'todo',
-  clientId: 'vue-test-app'
-});
-
-keycloak.init({onLoad: 'login-required'}).then(function(authenticated) {
-  alert(authenticated ? 'authenticated' : 'not authenticated');
-}).catch(function() {
-  alert('failed to initialize');
-});
-
-function logout() {
-  keycloak.logout('https://193.196.55.125:8443/auth/realms/todo/protocol/openid-connect/logout?redirect_uri=encodedRedirectUri')
-}
-
-/*
-var loadData = function () {
-  document.getElementById('username').innerText = keycloak.subject;
-  var url = 'https://193.196.55.125:8443/auth/';
-  var req = new XMLHttpRequest();
-  req.open('GET', url, true);
-  req.setRequestHeader('Accept', 'application/json');
-  req.setRequestHeader('Authorization', 'Bearer ' + keycloak.token);
-  req.onreadystatechange = function () {
-    if (req.readyState == 4) {
-      if (req.status == 200) {
-        alert('Success');
-      } else if (req.status == 403) {
-        alert('Forbidden');
-      }
-    }
-  };
-  req.send();
-};
-*/
-
-/*
-keycloak.updateToken(6000).then(function() {
-  loadData();
-}).catch(function() {
-  alert('Failed to refresh token');
-});
- */
+Vue.use(VueKeycloakJs, {
+  init: {
+    onLoad: 'check-sso'
+  },
+  config: {
+    url: 'https://9bedecec-b4fa-4c99-920a-ad988c144210.ma.bw-cloud-instance.org:8443/auth/',
+    realm: 'todo',
+    clientId: 'vue-test-app'
+  },
+  onReady: (keycloak) => {
+    new Vue({
+      router
+    })
+  }
+})

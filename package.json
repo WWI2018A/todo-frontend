@@ -11,15 +11,17 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@dsb-norge/vue-keycloak-js": "^1.1.2",
     "@nuxtjs/axios": "^5.3.6",
-    "bootstrap-vue": "^2.9.0",
+    "cors": "^2.8.5",
     "cross-env": "^5.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "keycloak-connect": "^9.0.2",
     "keycloak-js": "^9.0.2",
     "nuxt": "^2.0.0",
     "typescript": "^3.8.3",
-    "vue": "^2.6.11",
-    "keycloak-connect": "9.0.2"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",

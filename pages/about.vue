@@ -1,8 +1,14 @@
 <template>
-  <div id="app">
+<section>
     <h1> THE ABOUT PAGE </h1>
-  </div>
+    <h2>{{$keycloak.parsedToken}}</h2>
+</section>
 </template>
+
+<script>
+export default {
+}
+</script>
 
 <style scoped>
 h1{

@@ -3,7 +3,7 @@
     <h1>Listenname:{{headline}} </h1>
     <h2>Enthaltene Todos:</h2>
     <ul>
-      <Todo v-for="todo in todos" :key="todo"
+      <Todo v-for="todo in todos" v-bind:key="todo.id"
             v-bind:todo="todo"/>
     </ul>
     <form>
