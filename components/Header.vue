@@ -12,6 +12,9 @@
         <li>
           <nuxt-link to="/about" v-if="$keycloak.authenticated">About</nuxt-link>
         </li>
+        <li>
+          <nuxt-link to="/profiles">Profile</nuxt-link>
+        </li>
       </ul>
     </nav>
   </header>
