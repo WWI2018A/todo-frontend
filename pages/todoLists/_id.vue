@@ -1,9 +1,9 @@
 <template>
   <section>
-    <h1>Listenname: </h1>
+    <h1>Listenname:{{headline}} </h1>
     <h2>Enthaltene Todos:</h2>
     <ul>
-      <Todo v-for="todo in todos"
+      <Todo v-for="todo in todos" v-bind:key="todo.id"
             v-bind:todo="todo"/>
     </ul>
     <form>
@@ -32,14 +32,16 @@
       },
     },
 
-    asyncData(context) {
-      // Todos der jeweiligen Liste abrufen
-      return axios.get('http://localhost:3000/todo-mock-json/GET/Todos/GetTodosResponse.json').then((res) => {
-        return {
-          todos: res.data
-        }
-      });
+     async asyncData({ query, error }) {
+    let [listNameRes, toDoRes] = await Promise.all([
+      axios.get('/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json'),
+      axios.get('/todo-mock-json/GET/Todos/GetTodosResponse.json'),
+    ])
+    return {
+       headline : listNameRes.data.name,
+       todos : toDoRes.data
     }
+  }
     
   }
 

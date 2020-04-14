@@ -4,13 +4,13 @@
     <nav>
       <ul>
         <li>
-          <nuxt-link to="/">Starting Page</nuxt-link>
+          <nuxt-link to="/" >Starting Page</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/recipes">Recipes</nuxt-link>
+          <nuxt-link to="/recipes" v-if="$keycloak.authenticated">Recipes</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/about">About</nuxt-link>
+          <nuxt-link to="/about" v-if="$keycloak.authenticated">About</nuxt-link>
         </li>
         <li>
           <nuxt-link to="/profiles">Profile</nuxt-link>
