@@ -239,7 +239,7 @@ export default {
   asyncData() {
       return axios.get('http://localhost:4000/profiles/').then(res => {
         return {
-          profiles: res.data
+          profiles:res.data
         }
       })
     },
