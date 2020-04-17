@@ -1,5 +1,9 @@
 <template>
+<div>
   <p>Test</p>
+  <font-awesome-icon :icon="['fab', 'facebook']"/>
+</div>
+  
 </template>
 
 <script>

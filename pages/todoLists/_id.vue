@@ -18,6 +18,9 @@
   import axios from 'axios';
   import Todo from "../../components/Todo";
 
+  
+  const API_URL = 'http://localhost:3000';
+
   export default {
     components: {Todo},
 
@@ -31,7 +34,7 @@
         name: String
       },
     },
-
+//axios get request to receive the list name and the todos of the list
      async asyncData({ query, error }) {
     let [listNameRes, toDoRes] = await Promise.all([
       axios.get('/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json'),
@@ -44,7 +47,17 @@
   }
     
   }
-
+/*
+https://www.youtube.com/watch?v=y9vJMHjKukQ 
+//axios post request to add a new todo
+axios.post("https://jsonplaceholder.typicode.com/users",{
+  name:"Verteilte system machen",
+  dueDate:"28.04.2020"
+})
+.then(res =>{
+  console.log(res.data);
+})
+*/
 
 
 </script>

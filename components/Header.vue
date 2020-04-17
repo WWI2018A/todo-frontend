@@ -1,16 +1,19 @@
 <template>
   <header>
-    <h1>Logo</h1>
+    <nuxt-link to="/" class="logo">ToDo-App <i class="fas fa-check-double"></i></nuxt-link>
     <nav>
       <ul>
         <li>
-          <nuxt-link to="/" >Starting Page</nuxt-link>
+          <nuxt-link to="/todoLists" v-if="$keycloak.authenticated">ToDo-Listen</nuxt-link>
         </li>
         <li>
           <nuxt-link to="/recipes" v-if="$keycloak.authenticated">Recipes</nuxt-link>
         </li>
         <li>
           <nuxt-link to="/about" v-if="$keycloak.authenticated">About</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/profiles" v-if="$keycloak.authenticated">Profile</nuxt-link>
         </li>
       </ul>
     </nav>
@@ -20,11 +23,18 @@
 <style scoped>
   header {
     width: 100%;
-    height: 30px;
+    height: 50px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: #521751;
+    background-color: rgb(59, 59, 59);
+    font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+  }
+
+  .logo {
+    color: white;
+    font-size: 25px;
+    margin: 0 10px;
+    margin-left: 40px;
   }
 
   ul {
