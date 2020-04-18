@@ -38,26 +38,6 @@
       TodoListItem
     },
 
-    // TodoList um den Namen der jeweiligen Liste über den Todos anzuzeigen --> funzt noch nicht
-    // props: {
-    //   todoList: {
-    //     id: String,
-    //     createdDate: Date,
-    //     lastModifiedDate: Date,
-    //     userId: String,
-    //     name: String
-    //   },
-    // todo: {
-    //   id: String,
-    //   createdDate: Date,
-    //   lastModifiedDate: Date,
-    //   userId: String,
-    //   dueDate: Date,
-    //   status: String,
-    //   content: String,
-    // }
-    // },
-
     data() {
       return {
         buttonLabel: "Bearbeiten",
@@ -98,7 +78,7 @@
           userId: 'userXYZ',
           listId: this.todoList.id,
         };
-        this.todos.push(newTodo);
+        this.todos.unshift(newTodo);
         console.log(JSON.stringify(newTodo));
       }
     },

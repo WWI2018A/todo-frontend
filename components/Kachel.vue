@@ -3,7 +3,7 @@
     <article class="todoLists">
             <div class="thumbnail"></div>
                 <h3 class="name"> {{ todoList.name }} </h3>
-            
+
         </article>
  </nuxt-link>
 </template>
@@ -17,7 +17,6 @@ export default {
         createdDate: Date,
         lastModifiedDate: Date,
         userId: String,
-        
         name: String,
       }
 }
