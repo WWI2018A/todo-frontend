@@ -18,7 +18,6 @@
   import axios from 'axios';
   import Todo from "../../components/Todo";
 
-  
   const API_URL = 'http://localhost:3000';
 
   export default {
