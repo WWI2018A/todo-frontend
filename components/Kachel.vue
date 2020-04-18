@@ -1,9 +1,9 @@
 <template>
  <nuxt-link :to="'/todoLists/'+id">
     <article class="todoLists">
-            <div class="thumbnail" :style="{backgroundImage: 'url(' + thumbnail + ')'}"></div>
-                <h3 class="name"> {{ title }} </h3>
-                <p class="name">{{previewText}} </p>
+            <div class="thumbnail"></div>
+                <h3 class="name"> {{ todoList.name }} </h3>
+            
         </article>
  </nuxt-link>
 </template>
@@ -11,7 +11,16 @@
 
 <script>
 export default {
-  props: ['thumbnail', 'title', 'previewText', 'id']
+  props: {
+      todoList: {
+        id: String,
+        createdDate: Date,
+        lastModifiedDate: Date,
+        userId: String,
+        
+        name: String,
+      }
+}
 }
 </script>
 
