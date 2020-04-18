@@ -51,10 +51,12 @@
 
 <style scoped>
   .recipes {
+    background-color: rgb(186, 214, 229);
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
+    font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
   }
 
 </style>

@@ -25,8 +25,9 @@ a{
     width: 280px;
     padding: 8px;
     border: 1px solid #ccc;
-    box-shadow: 0 2px 2px #aaa;
+    box-shadow: 0 2px 2px rgb(59, 59, 59);
     margin: 10px;
+    background-color: white;
 }
 
 .thumbnail{
