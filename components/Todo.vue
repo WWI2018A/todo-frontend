@@ -40,14 +40,6 @@
             }
         },
 
-        created() {
-            console.log('Date: ' + this.todo.dueDate);
-            if (this.todo.dueDate === Date) {
-                console.log('Ist Datum');
-            }
-            console.log('Kurz Date: ' + this.todo.dueDate.prototype);
-        },
-
         data() {
             return {
                 buttonLabel: 'Bearbeiten',
