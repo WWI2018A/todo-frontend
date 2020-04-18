@@ -5,13 +5,18 @@
                 <input type="text" v-model="todo.content" v-bind:id="'ToDo' + todo.id" disabled>
                 bis
             </label>
-            <input type="datetime-local" v-model="todoDate" v-bind:id="'Date' + todo.id" disabled/>
-            <!-- <button type="button">bis {{todo.dueDate}}</button> -->
+            <!--      <input type="datetime-local" v-if="todo.dueDate === undefined" v-model="todoDateNull" v-bind:id="'Date' + todo.id" disabled/>-->
+            <!--      <input type="datetime-local" v-else v-model="todoDate" v-bind:id="'Date' + todo.id" disabled/>-->
+
+            <input type="datetime-local" v-model="todo.dueDate" v-bind:id="'Date' + todo.id" disabled/>
+
             <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
                    v-bind:id="'Check' + todo.id" checked>
             <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id">
-            <button type="button" v-on:click="editTodo">{{buttonLabel}} <i v-bind:class="editbtn"></i></button>
-            <button type="button" v-on:click="deleteTodo"><i class="fas fa-trash-alt"></i></button>
+            <button type="button" class="btn btn-outline-primary" v-on:click="editTodo">{{buttonLabel}} <i
+                    v-bind:class="editbtn"></i></button>
+            <button type="button" class="btn btn-outline-primary" v-on:click="deleteTodo"><i
+                    class="fas fa-trash-alt"></i></button>
         </div>
     </li>
 </template>
@@ -35,13 +40,21 @@
             }
         },
 
+        created() {
+            console.log('Date: ' + this.todo.dueDate);
+            if (this.todo.dueDate === Date) {
+                console.log('Ist Datum');
+            }
+            console.log('Kurz Date: ' + this.todo.dueDate.prototype);
+        },
 
         data() {
             return {
                 buttonLabel: 'Bearbeiten',
                 editbtn: 'fas fa-edit',
-                todoDate: '1996-10-16T00:05',
-                //todoDate: this.todo.dueDate.substr(0,16)
+                //todoDate: this.todo.dueDate.substr(0,19),
+                // todoDate: this.todo.dueDate.toLocaleDateString(undefined, {minute: 'numeric', hour: 'numeric', day: 'numeric', weekday: 'numeric', month: 'numeric', year: 'numeric'}),
+                // todoDateNull: new Date().toISOString().substr(0,19)
 
             }
         },
@@ -60,6 +73,8 @@
                     // post an to do service schicken
                     // Content des to dos ändern
                     this.todo.content = document.getElementById('ToDo' + this.todo.id).value;
+
+                    // TODO: beachten
                     this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ":00.000+0000";
                     console.log(JSON.stringify(this.todo));
                     this.buttonLabel = 'Bearbeiten';
@@ -91,12 +106,13 @@
                 axios.delete("https://jsonplaceholder.typicode.com/users/4")
                     .then(function (res) {
                         console.log(res.data);
+                        this.$el.parentNode.removeChild(this.$el);
                     })
-
             },
 
             updateCheck() {
-                if (document.getElementById('Check' + this.todo.id).checked == true) {
+                if (document.getElementById('Check' + this.todo.id).checked === true) {
+
 
                     console.log('Ist erledigt')
                     this.todo.status = 'COMLETED';

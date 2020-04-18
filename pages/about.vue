@@ -41,7 +41,7 @@
                 <p>Daniel Rehm</p>
             </div>
             <div class="teamcard">
-                <h3><i class="fas fa-desktop"></i> Monitoring Service</h3>
+                <h3><i class="fas fa-eye"></i> Monitoring Service</h3>
                 <p>Leon Bossert</p>
                 <p>Yannik Walter</p>
             </div>
@@ -58,7 +58,7 @@
                 <p>Anna-Maria Osterroth</p>
             </div>
             <div class="teamcard">
-                <h3><i class="fas fa-code"></i> User Interface</h3>
+                <h3><i class="fas fa-desktop"></i> User Interface</h3>
                 <p>Vithilaka Chandrabalu</p>
                 <p>Nathalie Klingler</p>
                 <p>Felix Raff</p>

@@ -48,7 +48,7 @@
       addNewList() {
         let newTodoListItem = {
           userId: 'userXYZ',
-          name: 'neueListe',
+          name: 'Neue Liste',
         };
         this.todoLists.push(newTodoListItem);
         console.log(JSON.stringify(newTodoListItem));
