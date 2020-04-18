@@ -72,7 +72,7 @@
       deleteList() {
         console.log('Send Request to delete the TodoList ' + this.todoList.data)
 
-        // Wenn axio erfolgreich war, dann geh auf Seite davor:
+        // TODO: Wenn axio erfolgreich war, dann geh auf Seite davor:
         // open('/todoLists','_self')
       },
 
@@ -81,6 +81,7 @@
           userId: 'userXYZ',
           listId: this.todoList.id,
         };
+        // Todo: Todo id von response hinzufügen (im Response Header)
         this.todos.unshift(newTodo);
         console.log(JSON.stringify(newTodo));
       },
@@ -101,7 +102,7 @@
         todos: countRes.data
       };
     }
- 
+
   }
 
 //axios get request to receive the list name and the todos of the list
@@ -115,11 +116,11 @@
   //      todos : toDoRes.data
   //   }
   // }
-    
+
 
 
 /*
-https://www.youtube.com/watch?v=y9vJMHjKukQ 
+https://www.youtube.com/watch?v=y9vJMHjKukQ
 //axios post request to add a new todo
 axios.post("https://jsonplaceholder.typicode.com/users",{
   name:"Verteilte system machen",
@@ -131,5 +132,5 @@ axios.post("https://jsonplaceholder.typicode.com/users",{
 */
 
 
-    
+
 </script>
