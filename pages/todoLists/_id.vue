@@ -9,9 +9,7 @@
     </h1>
     <h2>Enthaltene Todos:</h2>
     <ul>
-      <Todo v-for="todo in todos" v-bind:todo="todo"/>
-
-
+      <Todo v-for="todo in todos" v-bind:todo="todo" :key="todo.id"/>
     </ul>
     <li>
       <div>
@@ -32,9 +30,6 @@
   import TodoListItem from "../../components/TodoListItem";
 
   const API_URL = "http://localhost:3000";
-
-  
-  const API_URL = 'http://localhost:3000';
 
   export default {
     name: "todoLists",
@@ -80,32 +75,6 @@
         console.log('Send Request to delete the TodoList ' + this.todoList.data)
       },
 
-//axios get request to receive the list name and the todos of the list
-     async asyncData({ query, error }) {
-    let [listNameRes, toDoRes] = await Promise.all([
-      axios.get('/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json'),
-      axios.get('/todo-mock-json/GET/Todos/GetTodosResponse.json'),
-    ])
-    return {
-       headline : listNameRes.data.name,
-       todos : toDoRes.data
-    }
-  }
-    
-  }
-/*
-https://www.youtube.com/watch?v=y9vJMHjKukQ 
-//axios post request to add a new todo
-axios.post("https://jsonplaceholder.typicode.com/users",{
-  name:"Verteilte system machen",
-  dueDate:"28.04.2020"
-})
-.then(res =>{
-  console.log(res.data);
-})
-*/
-
-
       addTodo() {
         let newTodo = {
           userId: 'userXYZ',
@@ -113,7 +82,7 @@ axios.post("https://jsonplaceholder.typicode.com/users",{
         };
         this.todos.unshift(newTodo);
         console.log(JSON.stringify(newTodo));
-      }
+      },
     },
 
     async asyncData({query, error}) {
@@ -127,5 +96,35 @@ axios.post("https://jsonplaceholder.typicode.com/users",{
         todos: countRes.data
       };
     }
+ 
   }
+
+//axios get request to receive the list name and the todos of the list
+  //    async asyncData({ query, error }) {
+  //   let [listNameRes, toDoRes] = await Promise.all([
+  //     axios.get('/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json'),
+  //     axios.get('/todo-mock-json/GET/Todos/GetTodosResponse.json'),
+  //   ])
+  //   return {
+  //      headline : listNameRes.data.name,
+  //      todos : toDoRes.data
+  //   }
+  // }
+    
+
+
+/*
+https://www.youtube.com/watch?v=y9vJMHjKukQ 
+//axios post request to add a new todo
+axios.post("https://jsonplaceholder.typicode.com/users",{
+  name:"Verteilte system machen",
+  dueDate:"28.04.2020"
+})
+.then(res =>{
+  console.log(res.data);
+})
+*/
+
+
+    
 </script>

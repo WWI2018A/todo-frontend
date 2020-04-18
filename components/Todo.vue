@@ -42,7 +42,8 @@ import axios from 'axios';
       return {
         buttonLabel: 'Bearbeiten',
         editbtn: 'fas fa-edit',
-        todoDate: this.todo.dueDate.substr(0,16)
+        todoDate: '1996-10-16T00:05',
+        //todoDate: this.todo.dueDate.substr(0,16)
 
       }
     },
@@ -51,22 +52,19 @@ import axios from 'axios';
       editTodo() {
         if (this.buttonLabel === 'Bearbeiten') {
           this.buttonLabel = 'Speichern';
-
           this.editbtn = 'fas fa-save';
 
           // enable todo-label
           document.getElementById('ToDo' + this.todo.id).disabled = false;
           // enable todo-date
           document.getElementById('Date' + this.todo.id).disabled = false;
-        } else {
+          } else {
           // post an to do service schicken
           // Content des to dos ändern
           this.todo.content = document.getElementById('ToDo' + this.todo.id).value;
           this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ":00.000+0000";
           console.log(JSON.stringify(this.todo));
           this.buttonLabel = 'Bearbeiten';
-
-
           this.editbtn = 'fas fa-edit';
 
           // disable todo-label
@@ -86,26 +84,17 @@ import axios from 'axios';
           console.log(res.data)
         })
 
-        }
-
-
-
-      },
+        },
 
       deleteTodo() {
         console.log('Send Request to delete the Todo ' + this.todo.content)
-
-      },
-
-      updateCheck() {
-        if (document.getElementById('Check' + this.todo.id).checked == true) {
-
 
         //axios delete request to delete the todo
         axios.delete("https://jsonplaceholder.typicode.com/users/4")
         .then(function(res){
           console.log(res.data);
         })
+
       },
       
       updateCheck() {
@@ -131,8 +120,7 @@ import axios from 'axios';
         })
 
       },
-    },
-
+    }
   }
 </script>
 

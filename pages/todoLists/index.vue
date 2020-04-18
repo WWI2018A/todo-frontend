@@ -55,7 +55,6 @@
       }
     },
 
-
     asyncData() {
       return axios.get('http://localhost:3000/todo-mock-json/GET/TodoLists/GetTodosListsResponse.json').then(res => {
         return {
