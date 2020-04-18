@@ -42,6 +42,7 @@
       }
     },
     methods: {
+      //fügt eine neue Liste hinzu
       addNewList() {
         let newTodoListItem = {
           userId: 'userXYZ',
