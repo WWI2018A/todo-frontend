@@ -3,7 +3,6 @@
     <div class="center">
         <h1>WWI2018A</h1>
         <p>Das Team hinter der ToDo-App</p>
-        <h2>{{$keycloak.parsedToken}}</h2>
         <div class="team">
             <div class="teamcard">
                 <h3><i class="fas fa-users"></i> Projektleitung</h3>
