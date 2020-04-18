@@ -73,6 +73,7 @@
                     // post an to do service schicken
                     // Content des to dos ändern
                     this.todo.content = document.getElementById('ToDo' + this.todo.id).value;
+
                     // TODO: beachten
                     this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ":00.000+0000";
                     console.log(JSON.stringify(this.todo));
@@ -111,6 +112,7 @@
 
             updateCheck() {
                 if (document.getElementById('Check' + this.todo.id).checked === true) {
+
 
                     console.log('Ist erledigt')
                     this.todo.status = 'COMLETED';
