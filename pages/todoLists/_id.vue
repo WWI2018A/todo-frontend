@@ -11,16 +11,14 @@
     <ul>
       <Todo v-for="todo in todos" v-bind:todo="todo" :key="todo.id"/>
     </ul>
-    <li>
-      <div>
-        <form>
-          <button type="button" class="btn btn-outline-primary" v-on:click="addTodo">todo hinzufügen</button>
-          <button type="button" class="btn btn-outline-primary" v-on:click="editListName">{{buttonLabel}}</button>
-          <button type="button" class="btn btn-outline-primary" v-on:click="deleteList">löschen</button>
-          <input type="button" class="btn btn-outline-primary" value="zurück" onclick="history.go(-1)"/>
-        </form>
-      </div>
-    </li>
+    <div>
+      <form>
+        <button type="button" class="btn btn-outline-primary" v-on:click="addTodo"><i class="fas fa-plus"></i></button>
+        <button type="button" class="btn btn-outline-primary" v-on:click="editListName">{{buttonLabel}} <i class="fas fa-edit"></i></button>
+        <button type="button" class="btn btn-outline-primary" v-on:click="deleteList"><i class="fas fa-trash-alt"></i></button>
+        <button type="button" class="btn btn-outline-primary" v-on:click="pageBack"><i class="fas fa-arrow-left"></i></button>
+      </form>
+    </div>
   </section>
 </template>
 
@@ -73,6 +71,9 @@
 
       deleteList() {
         console.log('Send Request to delete the TodoList ' + this.todoList.data)
+
+        // Wenn axio erfolgreich war, dann geh auf Seite davor:
+        // open('/todoLists','_self')
       },
 
       addTodo() {
@@ -83,6 +84,10 @@
         this.todos.unshift(newTodo);
         console.log(JSON.stringify(newTodo));
       },
+
+      pageBack() {
+        open('/todoLists','_self')
+      }
     },
 
     async asyncData({query, error}) {

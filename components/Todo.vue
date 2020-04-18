@@ -2,18 +2,15 @@
   <li>
     <div>
       <label>
-
-        
        <input type="text" v-model="todo.content" v-bind:id="'ToDo' + todo.id" disabled>
        bis
       </label>
-      <input type="datetime-local" v-model="todoDate" v-bind:id="'Date' + todo.id" disabled/>
-      <!-- <button type="button">bis {{todo.dueDate}}</button> -->
+      <input type="datetime-local" v-if="todo.dueDate === undefined" v-model="todoDateNull" v-bind:id="'Date' + todo.id" disabled/>
+      <input type="datetime-local" v-else v-model="todoDate" v-bind:id="'Date' + todo.id" disabled/>
       <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck" v-bind:id="'Check' + todo.id" checked>
       <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id">
-      <button type="button" v-on:click="editTodo">{{buttonLabel}} <i v-bind:class="editbtn"></i></button>
-      <button type="button" v-on:click="deleteTodo"><i class="fas fa-trash-alt"></i></button>
-
+      <button type="button" class="btn btn-outline-primary" v-on:click="editTodo">{{buttonLabel}} <i v-bind:class="editbtn"></i></button>
+      <button type="button" class="btn btn-outline-primary" v-on:click="deleteTodo"><i class="fas fa-trash-alt"></i></button>
     </div>
   </li>
 </template>
@@ -42,8 +39,9 @@ import axios from 'axios';
       return {
         buttonLabel: 'Bearbeiten',
         editbtn: 'fas fa-edit',
-        todoDate: '1996-10-16T00:05',
-        //todoDate: this.todo.dueDate.substr(0,16)
+        //todoDate: this.todo.dueDate.substr(0,19),
+        todoDate: this.todo.dueDate.toLocaleDateString(undefined, {minute: 'numeric', hour: 'numeric', day: 'numeric', weekday: 'numeric', month: 'numeric', year: 'numeric'}),
+        todoDateNull: new Date().toISOString().substr(0,19)
 
       }
     },
@@ -93,6 +91,7 @@ import axios from 'axios';
         axios.delete("https://jsonplaceholder.typicode.com/users/4")
         .then(function(res){
           console.log(res.data);
+          this.$el.parentNode.removeChild(this.$el);
         })
 
       },
