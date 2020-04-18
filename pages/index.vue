@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <div class="center" id="app">
+    <div class="center">
       <h1>Herzlich Willkommen in der ToDo-App</h1>
       <p>Tutorial: https://www.youtube.com/watch?v=nteDXuqBfn0</p>
       <p>Mit 'npm run dev' startet man den Server </p>

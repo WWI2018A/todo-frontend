@@ -1,7 +1,7 @@
 import VueKeycloakJs from '@dsb-norge/vue-keycloak-js'
 import Vue from 'vue'
-import App from '../pages/index.vue'
 import router from './router'
+import axios from 'axios';
 
 Vue.config.productionTip = false
 
@@ -15,8 +15,18 @@ Vue.use(VueKeycloakJs, {
     clientId: 'vue-test-app'
   },
   onReady: (keycloak) => {
+    tokenInterceptor()
     new Vue({
       router
     })
   }
 })
+
+function tokenInterceptor () {
+  axios.interceptors.request.use(config => {
+    config.headers.Authorization = `Bearer ${Vue.prototype.$keycloak.token}`
+    return config
+  }, error => {
+    return Promise.reject(error)
+  })
+}
