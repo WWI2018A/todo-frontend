@@ -44,6 +44,7 @@
         todoLists: [],
       }
     },
+    
     methods: {
       //fügt eine neue Liste hinzu
       addNewList() {
@@ -54,7 +55,7 @@
         this.todoLists.push(newTodoListItem);
         console.log(JSON.stringify(newTodoListItem));
 
-         //axios post request to add a new todo
+        //axios post request to add a new list
         axios.post("https://jsonplaceholder.typicode.com/users",this.newTodoListItem,{})
         .then(res =>{
           console.log(res.data);
@@ -62,6 +63,7 @@
       }
     },
 
+    //axios get request to get all list names 
     asyncData() {
       return axios.get('http://localhost:3000/todo-mock-json/GET/TodoLists/GetTodosListsResponse.json').then(res => {
         return {
