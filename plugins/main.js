@@ -14,6 +14,9 @@ Vue.use(VueKeycloakJs, {
     realm: 'todo',
     clientId: 'vue-test-app'
   },
+  logout: {
+    redirectUri: 'http://localhost:3000/'
+  },
   onReady: (keycloak) => {
     tokenInterceptor()
     new Vue({

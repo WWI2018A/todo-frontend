@@ -1,27 +1,40 @@
 <template>
   <header>
-    <nuxt-link to="/" class="logo">ToDo-App <i class="fas fa-check-double"></i></nuxt-link>
-    <nav>
+    <div class="navigation">
+      <nuxt-link to="/" class="logo">ToDo-App <i class="fas fa-check-double"></i></nuxt-link>
+      <nav>
+        <ul>
+          <li>
+            <nuxt-link to="/todoLists" v-if="$keycloak.authenticated">ToDo-Listen</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/recipes" v-if="$keycloak.authenticated">Recipes</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/about" v-if="$keycloak.authenticated">About</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/profiles" v-if="$keycloak.authenticated">Profile</nuxt-link>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="login">
       <ul>
         <li>
-          <nuxt-link to="/todoLists" v-if="$keycloak.authenticated">ToDo-Listen</nuxt-link>
+          {{$keycloak.userName}}
         </li>
         <li>
-          <nuxt-link to="/recipes" v-if="$keycloak.authenticated">Recipes</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/about" v-if="$keycloak.authenticated">About</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/profiles" v-if="$keycloak.authenticated">Profile</nuxt-link>
+          <button v-on:click="$keycloak.logoutFn" v-if="$keycloak.authenticated">Logout</button>
+          <button v-on:click="$keycloak.login" v-else>Login</button>
         </li>
       </ul>
-    </nav>
+    </div>
   </header>
 </template>
 
 <style scoped>
-  header {
+  header, .navigation {
     width: 100%;
     height: 50px;
     display: flex;
@@ -53,5 +66,10 @@
   a {
     text-decoration: none;
     color: white;
+  }
+  
+  .login{
+    color: white;
+    margin-right: 40px;
   }
 </style>
