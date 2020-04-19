@@ -81,17 +81,20 @@
                     // disable todo-date
                     document.getElementById('Date' + this.todo.id).disabled = true;
 
-                }
-
-
-                //axios put request to modify the content and the duedate of the todo
-                axios.put("https://jsonplaceholder.typicode.com/users/1", {
-                    content: this.todo.content,
-                    dueDate: this.todo.dueDate
+                    //axios put request to modify the content and the duedate of the todo
+                axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
+                    transformRequest:[todo => {
+                        todo.id=undefined
+                        todo.userId=undefined
+                        todo.lastModifiedDate=undefined
+                        todo.createdDate=undefined
+                    }]
                 })
                     .then(res => {
                         console.log(res.data)
                     })
+
+                } 
 
             },
 
@@ -121,8 +124,13 @@
 
 
                 //axios put request to modify the status of the todo
-                axios.put("https://jsonplaceholder.typicode.com/users/1", {
-                    status: this.todo.status
+                axios.put("https://jsonplaceholder.typicode.com/users/1",this.todo, {
+                    transformRequest:[todo =>{
+                        todo.id=undefined
+                        todo.userId=undefined
+                        todo.lastModifiedDate=undefined
+                        todo.createdDate=undefined
+                    }]
                 })
                     .then(res => {
                         console.log(res.data)

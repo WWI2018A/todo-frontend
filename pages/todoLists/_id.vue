@@ -73,6 +73,20 @@
           document.getElementById('icon').classList.add('fa-edit');
           // disable todo-label
           document.getElementById("listid").disabled = true;
+
+          //axios put request to modify the content and the duedate of the todo
+           axios.put("https://jsonplaceholder.typicode.com/users/1", this.todoList,{
+             transformRequest: [todoList => {
+               todoList.id=undefined
+               todoList.lastModifiedDate=undefined
+               todoList.createdDate=undefined
+               todoList.userId=undefined
+             }]
+           } 
+           )
+            .then(res => {
+              console.log(res.data)
+            })
         }
       },
 
@@ -81,6 +95,11 @@
 
         // TODO: Wenn axio erfolgreich war, dann geh auf Seite davor:
         // open('/todoLists','_self')
+         axios.delete("https://jsonplaceholder.typicode.com/users/4")
+                    .then(function (res) {
+                        console.log(res.data);
+                        this.$el.parentNode.removeChild(this.$el);
+                    })
       },
 
       addTodo() {
@@ -91,6 +110,11 @@
         // Todo: Todo id von response hinzufügen (im Response Header)
         this.todos.push(newTodo);
         console.log(JSON.stringify(newTodo));
+        //axios post request to add a new todo
+        axios.post("https://jsonplaceholder.typicode.com/users",this.newTodo,{})
+        .then(res =>{
+          console.log(res.data);
+        })
       },
 
       pageBack() {
