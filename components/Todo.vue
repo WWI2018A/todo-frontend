@@ -42,8 +42,8 @@
         data() {
             return {
                 buttonLabel: 'Bearbeiten',
-                editInfo: 'Todo bearbeiten',
-                //todoDate: this.todo.dueDate.substr(0,19),
+                // editInfo: 'Todo bearbeiten',
+                // todoDate: this.todo.dueDate.substr(0,19),
                 // todoDate: this.todo.dueDate.toLocaleDateString(undefined, {minute: 'numeric', hour: 'numeric', day: 'numeric', weekday: 'numeric', month: 'numeric', year: 'numeric'}),
                 // todoDateNull: new Date().toISOString().substr(0,19)
 
@@ -51,21 +51,20 @@
         },
 
         methods: {
+            /* Function for Click on Edit-Button for single Todo
+            Change Icon and enable input-fields
+            Save changes, disable input-fields an send values to todo-service */
             editTodo() {
                 if (this.buttonLabel === 'Bearbeiten') {
                     this.buttonLabel = 'Speichern';
                     document.getElementById('icon' + this.todo.id).classList.remove('fa-edit');
                     document.getElementById('icon' + this.todo.id).classList.add('fa-save');
-                   // this.editInfo = 'Speichern';
-                    //console.log(document.getElementById('edit' + this.todo.id).title);
+                    // this.editInfo = 'Speichern';
+                    // console.log(document.getElementById('edit' + this.todo.id).title);
 
-                    // enable todo-label
                     document.getElementById('ToDo' + this.todo.id).disabled = false;
-                    // enable todo-date
                     document.getElementById('Date' + this.todo.id).disabled = false;
                 } else {
-                    // post an to do service schicken
-                    // Content des to dos ändern
                     this.todo.content = document.getElementById('ToDo' + this.todo.id).value;
 
                     // TODO: beachten
@@ -76,18 +75,16 @@
                     document.getElementById('icon' + this.todo.id).classList.add('fa-edit');
                     //this.editInfo = 'Todo bearbeiten';
 
-                    // disable todo-label
                     document.getElementById('ToDo' + this.todo.id).disabled = true;
-                    // disable todo-date
                     document.getElementById('Date' + this.todo.id).disabled = true;
 
                     //axios put request to modify the content and the duedate of the todo
-                axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
-                    transformRequest:[todo => {
-                        todo.id=undefined
-                        todo.userId=undefined
-                        todo.lastModifiedDate=undefined
-                        todo.createdDate=undefined
+                    axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
+                        transformRequest:[todo => {
+                            todo.id=undefined
+                            todo.userId=undefined
+                            todo.lastModifiedDate=undefined
+                            todo.createdDate=undefined
                     }]
                 })
                     .then(res => {
@@ -98,6 +95,8 @@
 
             },
 
+            /* Function for Click on Delete-Button for single Todo
+            Send Delete-Request to todo-service and delete this Todo in frontend */
             deleteTodo() {
                 console.log('Send Request to delete the Todo ' + this.todo.content)
 
@@ -109,10 +108,10 @@
                     })
             },
 
+            /* Function for Click on Checkbox for single Todo
+            Change checked/ unchecked status and send new status to todo-service */
             updateCheck() {
                 if (document.getElementById('Check' + this.todo.id).checked === true) {
-
-
                     console.log('Ist erledigt')
                     this.todo.status = 'COMLETED';
                     console.log(JSON.stringify(this.todo));
