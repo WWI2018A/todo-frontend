@@ -1,7 +1,5 @@
 module.exports = {
 
-  
-  mode: 'universal',
 
   mode: 'spa',
 
