@@ -1,14 +1,15 @@
 <template>
-
   <section class="todoLists">
     <!--    <ul>-->
     <!--      <TodoListItem v-for="todoList in todoLists" v-bind:todoList="todoList" />-->
     <!--    </ul>-->
-    <button class="btn btn-outline-primary" v-on:click="addNewList">Neue Liste</button>
+    <div class="topRow">
+    <button class="btn addbutton" v-on:click="addNewList" v-b-tooltip.hover title="Neue Liste hinzufügen"><i class="fas fa-plus" style="font-size: 30px;"></i></button>
+    </div>
     <div class="container-fluid">
       <div class="row no-gutters">
         <Kachel
-          class="col-3"
+          class="col-4"
           v-for="todoList in todoLists"
           v-bind:todoList="todoList"
           :key="todoList.id"
@@ -142,12 +143,40 @@
 </script>
 
 <style scoped>
-  .Kachel {
-    display: flex;
-    flex-flow: row wrap;
+.todoLists {
+  background-color: rgb(186, 214, 229);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  justify-content: center;
+  align-items: flex-start;
+
+  margin: 10px 0 0 10px; 
+  width:100%; 
+  float:left;
+}
+
+.topRow {
     justify-content: center;
     align-items: center;
-  }
+    text-align: center;
+    margin-top: 10px;
+}
+
+.addbutton {
+  color: rgb(59,59,59);
+}
+
+.addbutton:hover {
+  transform: scale(1.2);
+}
+
+.Kachel {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 
 

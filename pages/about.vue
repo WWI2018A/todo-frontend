@@ -94,8 +94,9 @@ section {
   padding: 30px;
   margin-top: 20px;
   margin-bottom: 30px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 2px rgb(59, 59, 59);
+  -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
 }
 
 .team {

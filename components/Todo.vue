@@ -2,7 +2,7 @@
     <li>
         <div>
             <label>
-                <input type="text" v-model="todo.content" v-bind:id="'ToDo' + todo.id" disabled>
+                <input type="text" class="todoContent" v-model="todo.content" v-bind:id="'ToDo' + todo.id" disabled>
                 bis
             </label>
             <!--      <input type="datetime-local" v-if="todo.dueDate === undefined" v-model="todoDateNull" v-bind:id="'Date' + todo.id" disabled/>-->
@@ -11,11 +11,10 @@
             <input type="datetime-local" v-model="todo.dueDate" v-bind:id="'Date' + todo.id" disabled/>
 
             <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
-                   v-bind:id="'Check' + todo.id" checked>
-            <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id">
-            <button type="button" class="btn btn-outline-primary" v-on:click="editTodo">{{buttonLabel}} <i
-                    v-bind:class="editbtn"></i></button>
-            <button type="button" class="btn btn-outline-primary" v-on:click="deleteTodo"><i
+                   v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken" checked>
+            <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken">
+            <button type="button" class="btn editbutton" v-on:click="editTodo" v-bind:id="'edit'+ todo.id" v-b-tooltip.hover title="Todo bearbeiten"><i v-bind:id="'icon'+ todo.id" class='fas fa-edit'></i></button>
+            <button type="button" class="btn editbutton" v-on:click="deleteTodo" v-b-tooltip.hover title="Todo löschen"><i
                     class="fas fa-trash-alt"></i></button>
         </div>
     </li>
@@ -43,7 +42,7 @@
         data() {
             return {
                 buttonLabel: 'Bearbeiten',
-                editbtn: 'fas fa-edit',
+                editInfo: 'Todo bearbeiten',
                 //todoDate: this.todo.dueDate.substr(0,19),
                 // todoDate: this.todo.dueDate.toLocaleDateString(undefined, {minute: 'numeric', hour: 'numeric', day: 'numeric', weekday: 'numeric', month: 'numeric', year: 'numeric'}),
                 // todoDateNull: new Date().toISOString().substr(0,19)
@@ -55,7 +54,10 @@
             editTodo() {
                 if (this.buttonLabel === 'Bearbeiten') {
                     this.buttonLabel = 'Speichern';
-                    this.editbtn = 'fas fa-save';
+                    document.getElementById('icon' + this.todo.id).classList.remove('fa-edit');
+                    document.getElementById('icon' + this.todo.id).classList.add('fa-save');
+                   // this.editInfo = 'Speichern';
+                    //console.log(document.getElementById('edit' + this.todo.id).title);
 
                     // enable todo-label
                     document.getElementById('ToDo' + this.todo.id).disabled = false;
@@ -70,7 +72,9 @@
                     this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ":00.000+0000";
                     console.log(JSON.stringify(this.todo));
                     this.buttonLabel = 'Bearbeiten';
-                    this.editbtn = 'fas fa-edit';
+                    document.getElementById('icon' + this.todo.id).classList.remove('fa-save');
+                    document.getElementById('icon' + this.todo.id).classList.add('fa-edit');
+                    //this.editInfo = 'Todo bearbeiten';
 
                     // disable todo-label
                     document.getElementById('ToDo' + this.todo.id).disabled = true;
@@ -130,5 +134,28 @@
 </script>
 
 <style scoped>
+input {
+  border: 0;
+}
 
+.todoContent {
+  width: 340px;
+}
+
+.editbutton {
+  color: black;
+}
+
+.editbutton:hover {
+    transform: scale(1.2);
+}
+
+input[type="checkbox"] { /* change "blue" browser chrome to yellow */
+  filter: invert(100%) hue-rotate(200deg) brightness(1.9);
+  /* filter: invert(0%) hue-rotate(360deg) brightness(1.25); */
+}
+
+input[type="checkbox"]:hover {
+  transform: scale(1.2);
+}
 </style>

@@ -1,9 +1,8 @@
 <template>
   <nuxt-link :to="{path: '/todoLists/' + todoList.id, props: {todoList: this.todoList}}">
     <article class="todoLists">
-      <div class="thumbnail"></div>
+      <div class="thumbnail" :style="{backgroundImage: 'url(' + thumbnail + ')'}"></div>
       <h3 class="name"> {{ todoList.name }} </h3>
-
     </article>
   </nuxt-link>
 </template>
@@ -18,6 +17,11 @@
         lastModifiedDate: Date,
         userId: String,
         name: String,
+      }
+    },
+    data() {
+      return {
+        thumbnail:'https://marckeil.de/wp-content/uploads/2015/08/To-Do-List-Resized.jpg'
       }
     }
   }
@@ -41,10 +45,11 @@
   }
 
   .todoLists {
-    margin: 60px 30px 5px 5px;
+    margin: 20px 30px 50px 5px;
     -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
     -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
     box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    background-color: white;
   }
 
   .kachel {
@@ -56,7 +61,7 @@
   }
 
   .thumbnail {
-    background-position: center;
+    background-position:left;
     background-size: cover;
     width: 100%;
     height: 300px;

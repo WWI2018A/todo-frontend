@@ -7,9 +7,6 @@
           <nuxt-link to="/todoLists" v-if="$keycloak.authenticated">ToDo-Listen</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/recipes" v-if="$keycloak.authenticated">Recipes</nuxt-link>
-        </li>
-        <li>
           <nuxt-link to="/about" v-if="$keycloak.authenticated">About</nuxt-link>
         </li>
         <li>
@@ -17,6 +14,10 @@
         </li>
       </ul>
     </nav>
+    <div class="logbtn">
+    <button  v-on:click="$keycloak.logoutFn" v-if="$keycloak.authenticated">Log out</button>
+    <button  v-on:click="$keycloak.login" v-if="!($keycloak.authenticated)">Login</button>
+    </div>
   </header>
 </template>
 
@@ -53,5 +54,11 @@
   a {
     text-decoration: none;
     color: white;
+  }
+
+  .logbtn {
+    float: right;
+    margin-right: 40px;
+    text-align:left;
   }
 </style>

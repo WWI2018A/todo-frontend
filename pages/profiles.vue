@@ -1,5 +1,5 @@
 <template>     
-  <div class="container-fluid p-0">
+  <div class="container-fluid p-0 profilepage">
     <div class="row-no-gutters" style="width: 100%;">
 
 
@@ -387,6 +387,9 @@ export default {
 </script>
 
 <style scoped>
+.profilepage {
+  font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+}
 
 /*Skillsection */
 .skilllogos{
