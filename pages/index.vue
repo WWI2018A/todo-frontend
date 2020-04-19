@@ -5,9 +5,6 @@
       <p>Tutorial: https://www.youtube.com/watch?v=nteDXuqBfn0</p>
       <p>Mit 'npm run dev' startet man den Server </p>
       <p>Hier kann man sich ein-/ ausloggen: </p>
-      <button v-on:click="$keycloak.logoutFn" v-if="$keycloak.authenticated">Log out</button>
-      <button v-on:click="$keycloak.login" v-if="!($keycloak.authenticated)">Login</button>
-      <p v-if="$keycloak.authenticated">Hallo {{$keycloak.userName}}</p>
     </div>
   </div>
 </template>
