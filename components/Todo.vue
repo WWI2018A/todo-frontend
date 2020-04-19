@@ -78,15 +78,15 @@
                     document.getElementById('ToDo' + this.todo.id).disabled = true;
                     document.getElementById('Date' + this.todo.id).disabled = true;
 
-                    //axios put request to modify the content and the duedate of the todo
+                    //axios put request to modify the content and/ or the duedate of the todo
                     axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
                         transformRequest:[todo => {
                             todo.id=undefined
                             todo.userId=undefined
                             todo.lastModifiedDate=undefined
                             todo.createdDate=undefined
-                    }]
-                })
+                        }]
+                    })
                     .then(res => {
                         console.log(res.data)
                     })
@@ -120,7 +120,6 @@
                     this.todo.status = 'NONE';
                     console.log(JSON.stringify(this.todo));
                 }
-
 
                 //axios put request to modify the status of the todo
                 axios.put("https://jsonplaceholder.typicode.com/users/1",this.todo, {

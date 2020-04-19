@@ -74,19 +74,19 @@
           // disable todo-label
           document.getElementById("listid").disabled = true;
 
-          //axios put request to modify the content and the duedate of the todo
-           axios.put("https://jsonplaceholder.typicode.com/users/1", this.todoList,{
-             transformRequest: [todoList => {
-               todoList.id=undefined
-               todoList.lastModifiedDate=undefined
-               todoList.createdDate=undefined
-               todoList.userId=undefined
-             }]
-           } 
-           )
-            .then(res => {
+          //axios put request to modify the list name
+          axios.put("https://jsonplaceholder.typicode.com/users/1", this.todoList,{
+            transformRequest: [todoList => {
+              todoList.id=undefined
+              todoList.lastModifiedDate=undefined
+              todoList.createdDate=undefined
+              todoList.userId=undefined
+            }]
+          } 
+          )
+          .then(res => {
               console.log(res.data)
-            })
+          })
         }
       },
 
@@ -95,11 +95,14 @@
 
         // TODO: Wenn axio erfolgreich war, dann geh auf Seite davor:
         // open('/todoLists','_self')
+
+        //axios delete request to delete the list
+        //If successful, return to the lists view page
          axios.delete("https://jsonplaceholder.typicode.com/users/4")
-                    .then(function (res) {
-                        console.log(res.data);
-                        this.$el.parentNode.removeChild(this.$el);
-                    })
+        .then(function (res) {
+          console.log(res.data);
+          this.$el.parentNode.removeChild(this.$el);
+        })
       },
 
       addTodo() {
@@ -110,6 +113,7 @@
         // Todo: Todo id von response hinzufügen (im Response Header)
         this.todos.push(newTodo);
         console.log(JSON.stringify(newTodo));
+        
         //axios post request to add a new todo
         axios.post("https://jsonplaceholder.typicode.com/users",this.newTodo,{})
         .then(res =>{
@@ -122,6 +126,7 @@
       }
     },
 
+    //axios get request to get the list name and the tasks of the list
     async asyncData({query, error}) {
       let [pageRes, countRes] = await Promise.all([
         axios.get("/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json"),
@@ -129,38 +134,10 @@
       ]);
       return {
         todoList: pageRes.data,
-        //headline: pageRes.data.name,
         todos: countRes.data
       };
     }
-
   }
-
-//axios get request to receive the list name and the todos of the list
-  //    async asyncData({ query, error }) {
-  //   let [listNameRes, toDoRes] = await Promise.all([
-  //     axios.get('/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json'),
-  //     axios.get('/todo-mock-json/GET/Todos/GetTodosResponse.json'),
-  //   ])
-  //   return {
-  //      headline : listNameRes.data.name,
-  //      todos : toDoRes.data
-  //   }
-  // }
-
-
-
-/*
-https://www.youtube.com/watch?v=y9vJMHjKukQ
-//axios post request to add a new todo
-axios.post("https://jsonplaceholder.typicode.com/users",{
-  name:"Verteilte system machen",
-  dueDate:"28.04.2020"
-})
-.then(res =>{
-  console.log(res.data);
-})
-*/
 
 </script>
 
