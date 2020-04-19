@@ -53,6 +53,12 @@
         };
         this.todoLists.push(newTodoListItem);
         console.log(JSON.stringify(newTodoListItem));
+
+         //axios post request to add a new todo
+        axios.post("https://jsonplaceholder.typicode.com/users",this.newTodoListItem,{})
+        .then(res =>{
+          console.log(res.data);
+        })
       }
     },
 
