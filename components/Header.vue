@@ -8,13 +8,7 @@
             <nuxt-link to="/todoLists" v-if="$keycloak.authenticated">ToDo-Listen</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/recipes" v-if="$keycloak.authenticated">Recipes</nuxt-link>
-          </li>
-          <li>
             <nuxt-link to="/about" v-if="$keycloak.authenticated">About</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/profiles" v-if="$keycloak.authenticated">Profile</nuxt-link>
           </li>
         </ul>
       </nav>
@@ -22,7 +16,7 @@
     <div class="login">
       <ul>
         <li>
-          {{$keycloak.userName}}
+          <nuxt-link to="/profiles" v-if="$keycloak.authenticated" v-b-tooltip.hover v-bind:title="$keycloak.userName"><i class='fas fa-user'></i></nuxt-link>
         </li>
         <li>
           <button v-on:click="$keycloak.logoutFn" v-if="$keycloak.authenticated">Logout</button>
@@ -59,7 +53,7 @@
     align-items: center;
   }
 
-  li {
+  li, i {
     margin: 0 10px;
   }
 
