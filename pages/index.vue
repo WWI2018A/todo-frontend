@@ -1,10 +1,12 @@
 <template>
   <div class="background">
     <div class="center">
-      <h1>Herzlich Willkommen in der ToDo-App</h1>
-      <p>Tutorial: https://www.youtube.com/watch?v=nteDXuqBfn0</p>
-      <p>Mit 'npm run dev' startet man den Server </p>
-      <p v-if="$keycloak.authenticated">Hallo {{$keycloak.userName}}</p>
+      <h1 v-if="$keycloak.authenticated">Hallo {{$keycloak.userName}},</h1>
+      <h1 v-if="$keycloak.authenticated">herzlich Willkommen in der ToDo-App</h1>
+      <h1 v-else>Herzlich Willkommen in der ToDo-App</h1>
+      <h2>Write It. Do It. Check It. <i class="fas fa-check-double"></i></h2>
+      <p>Unsere ToDo-App ermöglicht das Erstellen einer Vielzahl von unterschiedlichen ToDoListen. Eine übersichtliche Ansicht aller vom User erstellten Listen sowie eine detaillierte Anzeige der verschiedenen ToDos in den jeweiligen Listen, unterstützt Sie im Alltag stets alles im Blick zu haben und genau zu wissen, was bis wann erledigt sein muss.</p>
+      <p>Überzeugen Sie sich von unserer benutzerfreundlichen und modern gestalteten App und Sie werden Anderen beim Thema Aufgabenverwaltung immer einen Schritt voraus sein.</p>
     </div>
   </div>
 </template>
@@ -38,11 +40,19 @@
   font-weight: 400;
 }
 
+.center h2 {
+  font-size: x-large;
+  margin-top: 20px;
+  /* color: rgb(159, 186, 201); */
+  color: rgb(132, 159, 174);
+}
+
 .center p {
   font-weight: lighter;
   letter-spacing: 1px;
   width: 70%;
   margin: 10px auto;
+  margin-top: 20px;
 }
 
 </style>
