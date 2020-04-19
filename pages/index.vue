@@ -4,7 +4,7 @@
       <h1>Herzlich Willkommen in der ToDo-App</h1>
       <p>Tutorial: https://www.youtube.com/watch?v=nteDXuqBfn0</p>
       <p>Mit 'npm run dev' startet man den Server </p>
-      <p>Hier kann man sich ein-/ ausloggen: </p>
+      <p v-if="$keycloak.authenticated">Hallo {{$keycloak.userName}}</p>
     </div>
   </div>
 </template>
@@ -27,9 +27,11 @@
   text-align: center;
   padding: 30px;
   margin-top: 20px;
+  margin-bottom: 30px;
   font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 2px rgb(59, 59, 59);
+  -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+  -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+  box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
 }
 
 .center h1 {
