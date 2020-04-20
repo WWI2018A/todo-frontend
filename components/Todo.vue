@@ -1,5 +1,5 @@
 <template>
-    <li>
+    <li v-if="!todoDeleted">
         <div>
             <label>
                 <input type="text" class="todoContent" v-model="todo.content" v-bind:id="'ToDo' + todo.id"
@@ -12,7 +12,7 @@
             <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
                    v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken" checked>
             <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id" v-b-tooltip.hover
-                   title="Todo abhaken" v-model="todoChecked">
+                   title="Todo abhaken">
             <button type="button" class="btn editbutton" v-on:click="editTodo" v-bind:id="'edit'+ todo.id"
                     v-b-tooltip.hover title="Todo bearbeiten"><i v-bind:id="'icon'+ todo.id"
                                                                  v-bind:class="editTodoBtnIconClass" class='fas'></i>
@@ -26,7 +26,9 @@
 
 <script>
     import axios from 'axios';
-    //const API_URL = 'http://localhost:3000'
+
+    const API_URL = 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/todos/';
+
     export default {
         name: 'Todo',
 
@@ -40,18 +42,19 @@
                 dueDate: Date,
                 status: String,
                 content: String,
-            }
+            },
         },
 
         data() {
             return {
-                buttonLabel: 'Bearbeiten',
+                todoDeleted: false,
                 editInfo: 'Todo bearbeiten',
                 todoFormDisabled: true,
                 todoChecked: this.todo.status === 'COMPLETED',
                 editTodoBtnIconClass: this.todoFormDisabled ? 'fa-edit' : 'fa-save',
             }
         },
+
 
         methods: {
             /* Function for Click on Edit-Button for single Todo
@@ -60,25 +63,14 @@
             editTodo() {
                 if (this.todoFormDisabled) {
                     this.todoFormDisabled = false;
-                    this.buttonLabel = 'Speichern';
                 } else {
                     // post an to do service schicken
                     this.todoFormDisabled = true;
-                    // TODO: beachten
-                    this.buttonLabel = 'Bearbeiten';
                     //axios put request to modify the content and the duedate of the todo
-                    axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
-                        transformRequest: [todo => {
-                            todo.id = undefined
-                            todo.userId = undefined
-                            todo.lastModifiedDate = undefined
-                            todo.createdDate = undefined
-                        }]
-                    })
+                    axios.put(API_URL + this.$props.todo.id, this.todo)
                         .then(res => {
                             console.log(res.data)
                         })
-
                 }
 
             },
@@ -86,42 +78,24 @@
             /* Function for Click on Delete-Button for single Todo
             Send Delete-Request to todo-service and delete this Todo in frontend */
             deleteTodo() {
-                console.log('Send Request to delete the Todo ' + this.todo.content)
-
                 //axios delete request to delete the todo
-                axios.delete("https://jsonplaceholder.typicode.com/users/4")
-                    .then(function (res) {
+                console.log(API_URL + this.todo.id);
+                axios.delete(API_URL + this.todo.id)
+                    .then((res) => {
                         console.log(res.data);
-                        this.$el.parentNode.removeChild(this.$el);
+                        this.todoDeleted = true;
                     })
             },
 
             /* Function for Click on Checkbox for single Todo
             Change checked/ unchecked status and send new status to todo-service */
             updateCheck() {
-                if (document.getElementById('Check' + this.todo.id).checked === true) {
-                    console.log('Ist erledigt')
-                    this.todo.status = 'COMLETED';
-                    console.log(JSON.stringify(this.todo));
-                } else {
-                    console.log('Ist nicht erledigt')
-                    this.todo.status = 'NONE';
-                    console.log(JSON.stringify(this.todo));
-                }
-
-                //axios put request to modify the status of the todo
-                axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
-                    transformRequest: [todo => {
-                        todo.id = undefined
-                        todo.userId = undefined
-                        todo.lastModifiedDate = undefined
-                        todo.createdDate = undefined
-                    }]
-                })
-                    .then(res => {
-                        console.log(res.data)
+                this.todo.status = this.todoChecked ? 'UNCHECKED' : 'COMPLETED';
+                console.log(this.todo);
+                axios.put(API_URL + this.$props.todo.id, this.todo)
+                    .then((res) => {
+                        this.todoChecked = !this.todoChecked;
                     })
-
             },
         }
     }
