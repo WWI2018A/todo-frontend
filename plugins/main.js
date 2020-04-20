@@ -15,7 +15,7 @@ Vue.use(VueKeycloakJs, {
     clientId: 'todo-frontend'
   },
   logout: {
-    redirectUri: 'http://c8dd8bb4-d64a-4c82-ad6c-f9cd47fe8bd5.ma.bw-cloud-instance.org/'
+    redirectUri: 'http://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/*'
   },
   onReady: (keycloak) => {
     tokenInterceptor()
