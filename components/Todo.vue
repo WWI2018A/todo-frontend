@@ -1,5 +1,5 @@
 <template>
-    <li>
+    <li v-if="!todoDeleted">
         <div>
             <label>
                 <input type="text" class="todoContent" v-model="todo.content" v-bind:id="'ToDo' + todo.id"
@@ -47,12 +47,14 @@
 
         data() {
             return {
+                todoDeleted: false,
                 editInfo: 'Todo bearbeiten',
                 todoFormDisabled: true,
                 todoChecked: this.todo.status === 'COMPLETED',
                 editTodoBtnIconClass: this.todoFormDisabled ? 'fa-edit' : 'fa-save',
             }
         },
+
 
         methods: {
             /* Function for Click on Edit-Button for single Todo
@@ -79,9 +81,9 @@
                 //axios delete request to delete the todo
                 console.log(API_URL + this.todo.id);
                 axios.delete(API_URL + this.todo.id)
-                    .then(function (res) {
+                    .then((res) => {
                         console.log(res.data);
-                        this.$el.parentNode.removeChild(this.$el);
+                        this.todoDeleted = true;
                     })
             },
 
@@ -92,7 +94,7 @@
                 console.log(this.todo);
                 axios.put(API_URL + this.$props.todo.id, this.todo)
                     .then((res) => {
-                        this. todoChecked = !this.todoChecked;
+                        this.todoChecked = !this.todoChecked;
                     })
             },
         }
