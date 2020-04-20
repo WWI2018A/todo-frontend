@@ -130,35 +130,55 @@
             </div>
           </div>
         </div>
-
-        <div class="quote_container">
-          <div class="quotation">
-            <i class="fas fa-quote-right" style="font-size: 20px; color: black;"></i>
-          </div>
-          <p style="font-size: 1.5rem; font-weight: bold;">{{ quote }}</p>
-        </div>
   
 
         <div class="extrainformation">
-          <p style="font-size: 1rem; font-weight: bold;">Beschreibung:</p>
-          <p style="font-size: 1rem;"> {{ description }}</p>
+        <div class="info_container" data-aos="fade-right">
+          <div class="infoicon">
+            <p style="font-size: 1.5rem; font-weight: bold;"> Beschreibung </p>
+            <!--<i class="fas fa-info-circle" style="font-size: 20px; color: black;"></i>-->
+          </div>
           <br>
-          <p style="font-size: 1rem; font-weight: bold;">Rollen:</p>
-          <p style="font-size: 1rem;"> {{ roles }}</p>
+          <p style="font-size: 1rem;">{{ description }}</p>
+        </div>
+
+        <div class="info_container" data-aos="fade-right">
+          <div class="infoicon">
+            <!--<i class="fas fa-quote-right" style="font-size: 20px; color: black;"></i>-->
+            <p style="font-size: 1.5rem; font-weight: bold;"> Zitat </p>
+          </div>
           <br>
-          <p style="font-size: 1rem; font-weight: bold;">Firma:</p>
-          <p style="font-size: 1rem;"> {{ company }}</p>
+          <p style="font-size: 1rem;">{{ quote }}</p>
+        </div>
+
+        <div class="info_container" data-aos="fade-right">
+          <div class="infoicon">
+            <p style="font-size: 1.5rem; font-weight: bold;"> Rolle </p>
+            <!--<i class="fas fa-user-tag" style="font-size: 20px; color: black;"></i>-->
+          </div>
           <br>
-          <p style="font-size: 1rem; font-weight: bold;">Zitat:</p>
-          <p style="font-size: 1rem;"> {{ quote }}</p>
+          <p style="font-size: 1rem;">{{ roles }}</p>
+        </div>
+
+        <div class="info_container" data-aos="fade-right">
+          <div class="infoicon">
+            <p style="font-size: 1.5rem; font-weight: bold;"> Firma </p>
+            <!--<i class="fas fa-tv" style="font-size: 20px; color: black;"></i>-->
+          </div>
           <br>
-          <p style="font-size: 1rem; font-weight: bold;">Betriebssystem:</p>
+          <p style="font-size: 1rem;">{{ company }}</p>
+        </div>
+
+        <div class="info_container" data-aos="fade-right">
+          <div class="infoicon">
+            <p style="font-size: 1.5rem; font-weight: bold;"> Betriebssysteme </p>
+            <!--<i class="fas fa-quote-right" style="font-size: 20px; color: black;"></i>-->
+          </div>
+          <br>
           <div class="row">
               <i v-for="os_icon in os_icon" v-bind:class="os_icon" style="font-size: 20px; color: black; margin-left: 5px;"></i>
           </div>
         </div>
-
-        <div class="namesearch">
 
         </div>
 
@@ -176,6 +196,8 @@ import fontawesome from "@fortawesome/fontawesome";
 import brands from "@fortawesome/fontawesome-free-brands";
 import FontAwesomeIcon from "@fortawesome/vue-fontawesome";
 import Multiselect from 'vue-multiselect';
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default {
   name: 'profile',
@@ -237,7 +259,8 @@ export default {
         }
     },
   asyncData() {
-      return axios.get('http://localhost:4000/profiles/').then(res => {
+      //return axios.get('http://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/').then(res => {
+      return axios.get('http://193.196.54.93:3000/profiles/').then(res => {
         return {
           profiles:res.data
         }
@@ -253,7 +276,8 @@ export default {
             reader.onload = e => {
                 this.profilePicture = e.target.result
             }
-            axios.post('http://localhost:4000/profiles/imageupload/profilepicture', 
+            //axios.post('http://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/imageupload/profilepicture',
+            axios.post('http://193.196.54.93:3000/api/v1/profiles/imageupload/profilepicture', 
               fd,
               {
                 headers: {
@@ -276,7 +300,8 @@ export default {
             reader.onload = e => {
                 this.profileWallpaper = e.target.result
             }
-            axios.post('http://localhost:4000/profiles/imageupload/wallpaper', 
+            //axios.post('http://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/imageupload/wallpaper', 
+            axios.post('http://193.196.54.93:3000/api/v1/profiles/imageupload/wallpaper',  
               fd,
               {
                 headers: {
@@ -309,24 +334,8 @@ export default {
             this.social_name[i] = this.social_value[i].name
             this.social_icon[i] = this.social_value[i].icon
           }
-          console.log({
-            'uid': this.uid,
-            'name': this.name,
-            'prename': this.prename,
-            'company': this.company,
-            'quote': this.quote,
-            'description': this.description,
-            'roles': this.roles,
-            'os': this.os_name,
-            'os_icons': this.os_icon,
-            'skill': this.skill_name,
-            'skill_icons': this.skill_icon,
-            'social': this.social_name,
-            'social_icons': this.social_icon,
-            'profilePicture': this.profilePicture,
-            'profileWallpaper': this.profileWallpaper,
-          })
-          axios.put('http://localhost:4000/profiles/', 
+          //axios.put('http://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/',
+          axios.put('http://193.196.54.93:3000/api/v1/profiles/', 
           {
             'uid': this.uid,
             'name': this.name,
@@ -355,8 +364,11 @@ export default {
             }) 
         }
     },
+    created() {
+      AOS.init()
+    },
     mounted() {
-
+    
     this.profilePicture = this.profiles[0].profilePicture;
     this.profileWallpaper = this.profiles[0].profileWallpaper;
     this.company = this.profiles[0].company;
@@ -387,12 +399,17 @@ export default {
 </script>
 
 <style scoped>
+
 .profilepage {
   font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+  background-color: rgb(186, 214, 229);
+  position: absolute;
+  top: 50px;
 }
 
 /*Skillsection */
 .skilllogos{
+    clip-path: circle(35% at 50% 50%);
     width: 300px;
     height: 300px;
     position: relative;
@@ -401,11 +418,11 @@ export default {
     padding-top: 30px;
     padding-left: 8px;
     border-radius: 50%;
-    margin-top: 500px;
-    margin: 200px auto 0px;
+    margin: 300px auto 0px;
     transition: all ease-in-out .4s;  
 }
 .skilllogos:hover{
+    clip-path: circle(120% at 50% 50%);
     transform: scale(1.1);
     background-color: rgba(255, 255, 255, 0.5);
 }
@@ -556,38 +573,38 @@ export default {
     box-shadow: 0px 3px 9px rgba(0,0,0,0.12),
                 0px 3px 18px rgba(0,0,0,0.08);
     background:white;
-    color: white;
+    color:#ffffff00;
     outline:none;
 }
 
 
 /*Background*/
+
 .profileWallpaper {
     width: 100vw;
     height: 700px;
-    z-index: -1;
-    clip-path: polygon(0 0, 100% 0, 100% 30%, 0 70%);
+    z-index: 0;
+    /*clip-path: polygon(0 0, 100% 0, 100% 30%, 0 70%);*/
     position:absolute;
     top: 0;
     left: 0;
     object-fit: cover;
+
+    -webkit-mask-image: linear-gradient(350deg, transparent 30%, black 50%);
+    mask-image: linear-gradient(350deg, transparent 30%, black 50%);
+
 }
 .profilePictureLarge {
     width: 210px;
     height: 210px;
     border-radius: 50%;
-    border:10px solid white;
+    border:10px solid rgb(186, 214, 229);
     object-fit: cover;
     z-index: 5;
     position: absolute;
     top: 45px;
     left: 45px;
     transition: all ease-in-out .3s;
-}
-.profilePictureLarge:hover{
-    transform: scale(1.05);
-    border-radius: 50%;
-    border:1px solid rgba(186,214,229);
 }
 .profilePictureSmall {
     width: 210px;
@@ -605,8 +622,9 @@ export default {
 .displayname{
     text-align:center;
     margin: 0 auto;
-    text-align: center;
+    width: 50vw;
     font-size: 3rem;
+    border-bottom: 1px solid grey;
 }
 
 .displaysocialnetworks{
@@ -623,46 +641,59 @@ export default {
 
 .maininformation {
     position: absolute;
-    top: 500px;
+    top: 570px;
     left: 15vw;
     z-index: 1;
     width: 70vw;
     padding-bottom: 20px;
-    border-bottom: 1px solid #808080;
+
+    background-color: rgb(255, 255, 255);
+    -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
 }
 
 .editbutton {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 5px;
+  right: 5px;
   color: black;
 }
 
-.quote_container {
-  position: absolute;
-  top: 650px;
-  left: 30vw;
-  width: 40vw;
-  padding-left: 20px;
-  padding-right: 20px;
-  border: 1px solid black;
+.info_container {
+  width: 60vw;
+  padding: 20px;
+  padding-top: 40px;
+  margin-bottom: 70px;
+  background-color: rgb(255, 255, 255);
+
+  -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
 }
 
-.quotation {
-  position: absolute;
-  top: -5px;
-  left: -20px;
-  padding: 5px;
+.infoicon {
+  width: 20vw;
+  padding: 10px;
+  padding-bottom: 0px;
+  margin-top: -80px;
+  margin-left: -40px;
   background-color: rgba(186,214,229);
   border: 1px solid black;
+
+  -webkit-mask-image: linear-gradient(to left, transparent 0%, black 80%);
+    mask-image: linear-gradient(to left, transparent 0%, black 80%);
 }
 .extrainformation {
     position: absolute;
-    top: 750px;
-    left: 30vw;
+    top: 800px;
+    left: 15vw;
     z-index: 1;
-    width: 40vw;
+    width: 70vw;
+    padding-top: 20px;
     padding-bottom: 20px;
+    padding-left: 50px;
+    margin-bottom: 20px; 
 }
 
 .editbutton:hover {
