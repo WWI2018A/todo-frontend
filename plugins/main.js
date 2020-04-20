@@ -10,12 +10,12 @@ Vue.use(VueKeycloakJs, {
     onLoad: 'check-sso'
   },
   config: {
-    url: 'https://9bedecec-b4fa-4c99-920a-ad988c144210.ma.bw-cloud-instance.org:8443/auth/',
+    url: 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/auth',
     realm: 'todo',
     clientId: 'vue-test-app'
   },
   logout: {
-    redirectUri: 'http://localhost:3000/'
+    redirectUri: 'https://c8dd8bb4-d64a-4c82-ad6c-f9cd47fe8bd5.ma.bw-cloud-instance.org/'
   },
   onReady: (keycloak) => {
     tokenInterceptor()
