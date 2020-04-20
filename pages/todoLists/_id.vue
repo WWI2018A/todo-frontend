@@ -1,12 +1,17 @@
 <template>
   <section class="background">
-    <button type="button" class="btn editbutton returnbtn" v-on:click="pageBack"><i class="fas fa-arrow-left"></i></button>
+    <button type="button" class="btn editbutton returnbtn" v-on:click="pageBack"><i class="fas fa-arrow-left"></i>
+    </button>
     <div class="center">
       <h1>
         <label>
-          <input type="text" class="listName" v-model="todoList.name" id="listid" disabled/>
-          <button type="button" class="btn editbutton" v-on:click="editListName" v-b-tooltip.hover title="Listenname bearbeiten"><i id='icon' class="fas fa-edit"></i></button>
-          <button type="button" class="btn editbutton" v-on:click="deleteList" v-b-tooltip.hover title="Liste löschen"><i class="fas fa-trash-alt"></i></button>
+          <input type="text" class="listName" v-model="todoList.name" id="listid" :disabled="todoListFormDisabled"/>
+          <button type="button" class="btn editbutton" v-on:click="editListName" v-b-tooltip.hover
+                  title="Listenname bearbeiten"><i id='icon' class="fas"
+                                                   :class="todoListFormDisabled ? 'fa-edit' : 'fa-save'"></i>
+          </button>
+          <button type="button" class="btn editbutton" v-on:click="deleteList" v-b-tooltip.hover title="Liste löschen">
+            <i class="fas fa-trash-alt"></i></button>
         </label>
       </h1>
       <h2>Enthaltene Todos: </h2>
@@ -16,12 +21,13 @@
       <div>
         <form>
           <!-- <button type="button" class="btn editbutton" v-on:click="pageBack"><i class="fas fa-arrow-left"></i></button> -->
-          <button type="button" class="btn editbutton" v-on:click="addTodo" v-b-tooltip.hover title="Neues Todo hinzufügen"><i class="fas fa-plus-circle" style="font-size: 20px;"></i></button>
+          <button type="button" class="btn editbutton" v-on:click="addTodo" v-b-tooltip.hover
+                  title="Neues Todo hinzufügen"><i class="fas fa-plus-circle" style="font-size: 20px;"></i></button>
           <!-- <button type="button" class="btn editbutton" v-on:click="editListName"><i id='icon' class="fas fa-edit"></i></button>
           <button type="button" class="btn editbutton" v-on:click="deleteList"><i class="fas fa-trash-alt"></i></button> -->
         </form>
       </div>
-    </div> 
+    </div>
   </section>
 </template>
 
@@ -29,8 +35,9 @@
   import axios from "axios";
   import Todo from "../../components/Todo";
   import TodoListItem from "../../components/TodoListItem";
+  import {routerOptions} from "../../.nuxt/router";
 
-  const API_URL = "http://localhost:3000";
+  const API_URL = 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/todos';
 
   export default {
     name: "todoLists",
@@ -39,7 +46,6 @@
       Todo,
       TodoListItem
     },
-
 
     data() {
       return {
@@ -52,155 +58,140 @@
           name: String
         },
         todos: [],
+        todoListFormDisabled: true,
       };
     },
 
     methods: {
       editListName() {
-        if (this.buttonLabel === "Bearbeiten") {
+        if (this.todoListFormDisabled) {
+          this.todoListFormDisabled = false;
           this.buttonLabel = "Speichern";
-          document.getElementById('icon').classList.remove('fa-edit');
-          document.getElementById('icon').classList.add('fa-save');
-          // enable todo-label
-          document.getElementById("listid").disabled = false;
         } else {
+          this.todoListFormDisabled = true;
           // post an to do service schicken
-          // Content des to dos ändern
-          this.todoList.name = document.getElementById("listid").value;
-          console.log(JSON.stringify(this.todoList));
           this.buttonLabel = "Bearbeiten";
-          document.getElementById('icon').classList.remove('fa-save');
-          document.getElementById('icon').classList.add('fa-edit');
-          // disable todo-label
-          document.getElementById("listid").disabled = true;
-
-          //axios put request to modify the list name
-          axios.put("https://jsonplaceholder.typicode.com/users/1", this.todoList,{
-            transformRequest: [todoList => {
-              todoList.id=undefined
-              todoList.lastModifiedDate=undefined
-              todoList.createdDate=undefined
-              todoList.userId=undefined
-            }]
-          } 
-          )
-          .then(res => {
-              console.log(res.data)
+          //axios put request to modify the content and the duedate of the todo
+          console.log(this.todoList);
+          axios.put(API_URL + '/todoLists/' + this.todoList.id, this.todoList, {}
+          ).then(res => {
           })
         }
       },
 
       deleteList() {
-        console.log('Send Request to delete the TodoList ' + this.todoList.data)
-
-        // TODO: Wenn axio erfolgreich war, dann geh auf Seite davor:
-        // open('/todoLists','_self')
-
-        //axios delete request to delete the list
-        //If successful, return to the lists view page
-         axios.delete("https://jsonplaceholder.typicode.com/users/4")
-        .then(function (res) {
-          console.log(res.data);
-          this.$el.parentNode.removeChild(this.$el);
-        })
+        axios.delete(API_URL + '/todoLists/' + this.todoList.id)
+          .then(function (res) {
+            console.log(res.data.name);
+            history.go(-1);
+          })
       },
 
       addTodo() {
         let newTodo = {
-          userId: 'userXYZ',
+          id: undefined,
           listId: this.todoList.id,
+          createdDate: undefined,
+          lastModifiedDate: undefined,
+          userId: undefined,
+          dueDate: undefined,
+          status: undefined,
+          content: undefined,
         };
-        // Todo: Todo id von response hinzufügen (im Response Header)
-        this.todos.push(newTodo);
-        console.log(JSON.stringify(newTodo));
-        
+        console.log(API_URL);
         //axios post request to add a new todo
-        axios.post("https://jsonplaceholder.typicode.com/users",this.newTodo,{})
-        .then(res =>{
-          console.log(res.data);
+        axios.post(API_URL, newTodo)
+          .then(res => {
+            newTodo.id = res.headers['location'].split('/')[0]
+            console.log(res.data);
+            this.todos.push(newTodo);
+          }).catch((error) => {
+            alert(error)
         })
       },
 
       pageBack() {
-        open('/todoLists','_self')
+        history.go(-1);
       }
     },
 
-    //axios get request to get the list name and the tasks of the list
-    async asyncData({query, error}) {
-      let [pageRes, countRes] = await Promise.all([
-        axios.get("/todo-mock-json/GET/TodoLists/GetTodoListsIdResponse.json"),
-        axios.get("/todo-mock-json/GET/Todos/GetTodosResponse.json")
-      ]);
-      return {
-        todoList: pageRes.data,
-        todos: countRes.data
-      };
+    async asyncData({params}) {
+      return axios.all([
+        axios.get(API_URL + '/todoLists/' + params.id),
+        axios.get(API_URL + '/', {params: {listId: params.id}})
+      ]).then(axios.spread((...responses) => {
+        return {
+          todoList: responses[0].data,
+          todos: responses[1].data,
+        }
+        // use/access the results
+      })).catch(errors => {
+        // react on errors.
+      })
     }
   }
-
 </script>
 
 <style scoped>
-.background {
-  background-color: rgb(186, 214, 229);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: bottom;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
+  .background {
+    background-color: rgb(186, 214, 229);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
 
-.returnbtn {
-  margin-top: 55px;
-}
+  .returnbtn {
+    margin-top: 55px;
+  }
 
-.center {
-  width: 70%;
-  background-color: rgb(255, 255, 255);
-  height: 60vh auto;
-  padding: 30px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
-  -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
-  -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
-  box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
-}
+  .center {
+    width: 70%;
+    background-color: rgb(255, 255, 255);
+    height: 60vh auto;
+    padding: 30px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+    -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+  }
 
-.center h1 {
-  font-weight: 400;
-  margin-bottom: 20px;
-}
+  .center h1 {
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
 
-.listName {
-  width: 635px;
-}
+  .listName {
+    width: 635px;
+  }
 
-h2 {
-  font-size: x-large;
-  margin-bottom: 15px;
-}
+  h2 {
+    font-size: x-large;
+    margin-bottom: 15px;
+  }
 
-input {
-  border: 0;
-  width: fit-content;
-}
+  input {
+    border: 0;
+    width: fit-content;
+  }
 
-.center p {
-  font-weight: lighter;
-  letter-spacing: 1px;
-  width: 70%;
-  margin: 10px auto;
-}
+  .center p {
+    font-weight: lighter;
+    letter-spacing: 1px;
+    width: 70%;
+    margin: 10px auto;
+  }
 
-.editbutton {
-  color: black;
-}
+  .editbutton {
+    color: black;
+  }
 
-.editbutton:hover {
-  transform: scale(1.2);
-}
+  .editbutton:hover {
+    transform: scale(1.2);
+  }
 
 </style>

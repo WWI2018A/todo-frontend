@@ -2,20 +2,24 @@
     <li>
         <div>
             <label>
-                <input type="text" class="todoContent" v-model="todo.content" v-bind:id="'ToDo' + todo.id" disabled>
+                <input type="text" class="todoContent" v-model="todo.content" v-bind:id="'ToDo' + todo.id"
+                       :disabled="todoFormDisabled">
                 bis
             </label>
-            <!--      <input type="datetime-local" v-if="todo.dueDate === undefined" v-model="todoDateNull" v-bind:id="'Date' + todo.id" disabled/>-->
-            <!--      <input type="datetime-local" v-else v-model="todoDate" v-bind:id="'Date' + todo.id" disabled/>-->
-
-            <input type="datetime-local" v-model="todo.dueDate" v-bind:id="'Date' + todo.id" disabled/>
+            <input type="datetime-local" v-model="todo.dueDate" v-bind:id="'Date' + todo.id"
+                   :disabled="todoFormDisabled"/>
 
             <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
                    v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken" checked>
-            <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken">
-            <button type="button" class="btn editbutton" v-on:click="editTodo" v-bind:id="'edit'+ todo.id" v-b-tooltip.hover title="Todo bearbeiten"><i v-bind:id="'icon'+ todo.id" class='fas fa-edit'></i></button>
-            <button type="button" class="btn editbutton" v-on:click="deleteTodo" v-b-tooltip.hover title="Todo löschen"><i
-                    class="fas fa-trash-alt"></i></button>
+            <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id" v-b-tooltip.hover
+                   title="Todo abhaken" v-model="todoChecked">
+            <button type="button" class="btn editbutton" v-on:click="editTodo" v-bind:id="'edit'+ todo.id"
+                    v-b-tooltip.hover title="Todo bearbeiten"><i v-bind:id="'icon'+ todo.id"
+                                                                 v-bind:class="editTodoBtnIconClass" class='fas'></i>
+            </button>
+            <button type="button" class="btn editbutton" v-on:click="deleteTodo" v-b-tooltip.hover title="Todo löschen">
+                <i
+                        class="fas fa-trash-alt"></i></button>
         </div>
     </li>
 </template>
@@ -42,11 +46,10 @@
         data() {
             return {
                 buttonLabel: 'Bearbeiten',
-                // editInfo: 'Todo bearbeiten',
-                // todoDate: this.todo.dueDate.substr(0,19),
-                // todoDate: this.todo.dueDate.toLocaleDateString(undefined, {minute: 'numeric', hour: 'numeric', day: 'numeric', weekday: 'numeric', month: 'numeric', year: 'numeric'}),
-                // todoDateNull: new Date().toISOString().substr(0,19)
-
+                editInfo: 'Todo bearbeiten',
+                todoFormDisabled: true,
+                todoChecked: this.todo.status === 'COMPLETED',
+                editTodoBtnIconClass: this.todoFormDisabled ? 'fa-edit' : 'fa-save',
             }
         },
 
@@ -55,43 +58,28 @@
             Change Icon and enable input-fields
             Save changes, disable input-fields an send values to todo-service */
             editTodo() {
-                if (this.buttonLabel === 'Bearbeiten') {
+                if (this.todoFormDisabled) {
+                    this.todoFormDisabled = false;
                     this.buttonLabel = 'Speichern';
-                    document.getElementById('icon' + this.todo.id).classList.remove('fa-edit');
-                    document.getElementById('icon' + this.todo.id).classList.add('fa-save');
-                    // this.editInfo = 'Speichern';
-                    // console.log(document.getElementById('edit' + this.todo.id).title);
-
-                    document.getElementById('ToDo' + this.todo.id).disabled = false;
-                    document.getElementById('Date' + this.todo.id).disabled = false;
                 } else {
-                    this.todo.content = document.getElementById('ToDo' + this.todo.id).value;
-
+                    // post an to do service schicken
+                    this.todoFormDisabled = true;
                     // TODO: beachten
-                    this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ":00.000+0000";
-                    console.log(JSON.stringify(this.todo));
                     this.buttonLabel = 'Bearbeiten';
-                    document.getElementById('icon' + this.todo.id).classList.remove('fa-save');
-                    document.getElementById('icon' + this.todo.id).classList.add('fa-edit');
-                    //this.editInfo = 'Todo bearbeiten';
-
-                    document.getElementById('ToDo' + this.todo.id).disabled = true;
-                    document.getElementById('Date' + this.todo.id).disabled = true;
-
-                    //axios put request to modify the content and/ or the duedate of the todo
+                    //axios put request to modify the content and the duedate of the todo
                     axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
-                        transformRequest:[todo => {
-                            todo.id=undefined
-                            todo.userId=undefined
-                            todo.lastModifiedDate=undefined
-                            todo.createdDate=undefined
+                        transformRequest: [todo => {
+                            todo.id = undefined
+                            todo.userId = undefined
+                            todo.lastModifiedDate = undefined
+                            todo.createdDate = undefined
                         }]
                     })
-                    .then(res => {
-                        console.log(res.data)
-                    })
+                        .then(res => {
+                            console.log(res.data)
+                        })
 
-                } 
+                }
 
             },
 
@@ -122,12 +110,12 @@
                 }
 
                 //axios put request to modify the status of the todo
-                axios.put("https://jsonplaceholder.typicode.com/users/1",this.todo, {
-                    transformRequest:[todo =>{
-                        todo.id=undefined
-                        todo.userId=undefined
-                        todo.lastModifiedDate=undefined
-                        todo.createdDate=undefined
+                axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
+                    transformRequest: [todo => {
+                        todo.id = undefined
+                        todo.userId = undefined
+                        todo.lastModifiedDate = undefined
+                        todo.createdDate = undefined
                     }]
                 })
                     .then(res => {
@@ -140,28 +128,28 @@
 </script>
 
 <style scoped>
-input {
-  border: 0;
-}
+    input {
+        border: 0;
+    }
 
-.todoContent {
-  width: 340px;
-}
+    .todoContent {
+        width: 340px;
+    }
 
-.editbutton {
-  color: black;
-}
+    .editbutton {
+        color: black;
+    }
 
-.editbutton:hover {
-    transform: scale(1.2);
-}
+    .editbutton:hover {
+        transform: scale(1.2);
+    }
 
-input[type="checkbox"] { /* change "blue" browser chrome to yellow */
-  filter: invert(100%) hue-rotate(200deg) brightness(1.9);
-  /* filter: invert(0%) hue-rotate(360deg) brightness(1.25); */
-}
+    input[type="checkbox"] { /* change "blue" browser chrome to yellow */
+        filter: invert(100%) hue-rotate(200deg) brightness(1.9);
+        /* filter: invert(0%) hue-rotate(360deg) brightness(1.25); */
+    }
 
-input[type="checkbox"]:hover {
-  transform: scale(1.2);
-}
+    input[type="checkbox"]:hover {
+        transform: scale(1.2);
+    }
 </style>

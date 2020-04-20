@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="{path: '/todoLists/' + todoList.id, props: {todoList: this.todoList}}">
+  <nuxt-link :to="{name: 'todoLists-id' , params: {id: todoList.id}}">
     <article class="todoLists">
       <div class="thumbnail" :style="{backgroundImage: 'url(' + thumbnail + ')'}"></div>
       <h3 class="name"> {{ todoList.name }} </h3>
@@ -21,7 +21,7 @@
     },
     data() {
       return {
-        thumbnail:'https://marckeil.de/wp-content/uploads/2015/08/To-Do-List-Resized.jpg'
+        thumbnail: 'https://marckeil.de/wp-content/uploads/2015/08/To-Do-List-Resized.jpg'
       }
     }
   }
@@ -61,7 +61,7 @@
   }
 
   .thumbnail {
-    background-position:left;
+    background-position: left;
     background-size: cover;
     width: 100%;
     height: 300px;
