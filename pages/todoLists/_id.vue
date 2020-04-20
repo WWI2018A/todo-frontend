@@ -75,7 +75,6 @@
           console.log(this.todoList);
           axios.put(API_URL + '/todoLists/' + this.todoList.id, this.todoList, {}
           ).then(res => {
-
           })
         }
       },
@@ -130,7 +129,6 @@
         // react on errors.
       })
     }
-
   }
 </script>
 

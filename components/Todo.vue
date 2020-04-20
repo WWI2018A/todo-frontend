@@ -54,6 +54,9 @@
         },
 
         methods: {
+            /* Function for Click on Edit-Button for single Todo
+            Change Icon and enable input-fields
+            Save changes, disable input-fields an send values to todo-service */
             editTodo() {
                 if (this.todoFormDisabled) {
                     this.todoFormDisabled = false;
@@ -63,7 +66,6 @@
                     this.todoFormDisabled = true;
                     // TODO: beachten
                     this.buttonLabel = 'Bearbeiten';
-
                     //axios put request to modify the content and the duedate of the todo
                     axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
                         transformRequest: [todo => {
@@ -81,6 +83,8 @@
 
             },
 
+            /* Function for Click on Delete-Button for single Todo
+            Send Delete-Request to todo-service and delete this Todo in frontend */
             deleteTodo() {
                 console.log('Send Request to delete the Todo ' + this.todo.content)
 
@@ -92,10 +96,10 @@
                     })
             },
 
+            /* Function for Click on Checkbox for single Todo
+            Change checked/ unchecked status and send new status to todo-service */
             updateCheck() {
                 if (document.getElementById('Check' + this.todo.id).checked === true) {
-
-
                     console.log('Ist erledigt')
                     this.todo.status = 'COMLETED';
                     console.log(JSON.stringify(this.todo));
@@ -104,7 +108,6 @@
                     this.todo.status = 'NONE';
                     console.log(JSON.stringify(this.todo));
                 }
-
 
                 //axios put request to modify the status of the todo
                 axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {

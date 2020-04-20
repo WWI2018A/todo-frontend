@@ -39,6 +39,7 @@
         todoLists: [],
       }
     },
+    
     methods: {
       //fügt eine neue Liste hinzu
       addNewList() {
@@ -55,6 +56,7 @@
       }
     },
 
+    //axios get request to get all list names 
     asyncData() {
       return axios.get(API_URL + '/todoLists').then(res => {
         console.log(res.data)
