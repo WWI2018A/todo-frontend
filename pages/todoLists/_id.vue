@@ -102,8 +102,9 @@
         //axios post request to add a new todo
         axios.post(API_URL, newTodo)
           .then(res => {
-            newTodo.id = res.headers['location'].split('/')[0]
+            newTodo.id = res.headers['location'].split('/')[2]
             this.todos.push(newTodo);
+            console.log(newTodo);
           }).catch((error) => {
             alert(error)
         })
