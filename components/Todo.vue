@@ -12,7 +12,7 @@
             <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
                    v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken" checked>
             <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id" v-b-tooltip.hover
-                   title="Todo abhaken" v-model="todoChecked">
+                   title="Todo abhaken">
             <button type="button" class="btn editbutton" v-on:click="editTodo" v-bind:id="'edit'+ todo.id"
                     v-b-tooltip.hover title="Todo bearbeiten"><i v-bind:id="'icon'+ todo.id"
                                                                  v-bind:class="editTodoBtnIconClass" class='fas'></i>
@@ -42,29 +42,15 @@
                 dueDate: Date,
                 status: String,
                 content: String,
-            }
-        },
-
-        created() {
-            console.log(this.todo);
+            },
         },
 
         data() {
             return {
-                buttonLabel: 'Bearbeiten',
                 editInfo: 'Todo bearbeiten',
                 todoFormDisabled: true,
                 todoChecked: this.todo.status === 'COMPLETED',
                 editTodoBtnIconClass: this.todoFormDisabled ? 'fa-edit' : 'fa-save',
-                todo: {
-                    id: String,
-                    createdDate: Date,
-                    lastModifiedDate: Date,
-                    userId: String,
-                    dueDate: Date,
-                    status: String,
-                    content: String,
-                }
             }
         },
 
@@ -75,18 +61,14 @@
             editTodo() {
                 if (this.todoFormDisabled) {
                     this.todoFormDisabled = false;
-                    this.buttonLabel = 'Speichern';
                 } else {
                     // post an to do service schicken
                     this.todoFormDisabled = true;
-                    // TODO: beachten
-                    this.buttonLabel = 'Bearbeiten';
                     //axios put request to modify the content and the duedate of the todo
-                    axios.put(API_URL + this.todo.id, this.todo)
+                    axios.put(API_URL + this.$props.todo.id, this.todo)
                         .then(res => {
                             console.log(res.data)
                         })
-
                 }
 
             },
@@ -106,29 +88,12 @@
             /* Function for Click on Checkbox for single Todo
             Change checked/ unchecked status and send new status to todo-service */
             updateCheck() {
-                if (document.getElementById('Check' + this.todo.id).checked === true) {
-                    console.log('Ist erledigt')
-                    this.todo.status = 'COMLETED';
-                    console.log(JSON.stringify(this.todo));
-                } else {
-                    console.log('Ist nicht erledigt')
-                    this.todo.status = 'NONE';
-                    console.log(JSON.stringify(this.todo));
-                }
-
-                //axios put request to modify the status of the todo
-                axios.put(API_URL, this.todo, {
-                    transformRequest: [todo => {
-                        todo.id = undefined
-                        todo.userId = undefined
-                        todo.lastModifiedDate = undefined
-                        todo.createdDate = undefined
-                    }]
-                })
-                    .then(res => {
-                        console.log(res.data)
+                this.todo.status = this.todoChecked ? 'UNCHECKED' : 'COMPLETED';
+                console.log(this.todo);
+                axios.put(API_URL + this.$props.todo.id, this.todo)
+                    .then((res) => {
+                        this. todoChecked = !this.todoChecked;
                     })
-
             },
         }
     }
