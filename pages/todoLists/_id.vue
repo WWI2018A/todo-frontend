@@ -37,7 +37,7 @@
   import TodoListItem from "../../components/TodoListItem";
   import {routerOptions} from "../../.nuxt/router";
 
-  const API_URL = 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/todos';
+  const API_URL = 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/todos/';
 
   export default {
     name: "todoLists",
@@ -103,7 +103,6 @@
         axios.post(API_URL, newTodo)
           .then(res => {
             newTodo.id = res.headers['location'].split('/')[0]
-            console.log(res.data);
             this.todos.push(newTodo);
           }).catch((error) => {
             alert(error)

@@ -26,7 +26,9 @@
 
 <script>
     import axios from 'axios';
-    //const API_URL = 'http://localhost:3000'
+
+    const API_URL = 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/todos/';
+
     export default {
         name: 'Todo',
 
@@ -43,6 +45,10 @@
             }
         },
 
+        created() {
+            console.log(this.todo);
+        },
+
         data() {
             return {
                 buttonLabel: 'Bearbeiten',
@@ -50,6 +56,15 @@
                 todoFormDisabled: true,
                 todoChecked: this.todo.status === 'COMPLETED',
                 editTodoBtnIconClass: this.todoFormDisabled ? 'fa-edit' : 'fa-save',
+                todo: {
+                    id: String,
+                    createdDate: Date,
+                    lastModifiedDate: Date,
+                    userId: String,
+                    dueDate: Date,
+                    status: String,
+                    content: String,
+                }
             }
         },
 
@@ -67,14 +82,7 @@
                     // TODO: beachten
                     this.buttonLabel = 'Bearbeiten';
                     //axios put request to modify the content and the duedate of the todo
-                    axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
-                        transformRequest: [todo => {
-                            todo.id = undefined
-                            todo.userId = undefined
-                            todo.lastModifiedDate = undefined
-                            todo.createdDate = undefined
-                        }]
-                    })
+                    axios.put(API_URL + this.todo.id, this.todo)
                         .then(res => {
                             console.log(res.data)
                         })
@@ -86,10 +94,9 @@
             /* Function for Click on Delete-Button for single Todo
             Send Delete-Request to todo-service and delete this Todo in frontend */
             deleteTodo() {
-                console.log('Send Request to delete the Todo ' + this.todo.content)
-
                 //axios delete request to delete the todo
-                axios.delete("https://jsonplaceholder.typicode.com/users/4")
+                console.log(API_URL + this.todo.id);
+                axios.delete(API_URL + this.todo.id)
                     .then(function (res) {
                         console.log(res.data);
                         this.$el.parentNode.removeChild(this.$el);
@@ -110,7 +117,7 @@
                 }
 
                 //axios put request to modify the status of the todo
-                axios.put("https://jsonplaceholder.typicode.com/users/1", this.todo, {
+                axios.put(API_URL, this.todo, {
                     transformRequest: [todo => {
                         todo.id = undefined
                         todo.userId = undefined

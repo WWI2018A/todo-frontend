@@ -25,7 +25,7 @@
   import Kachel from '@/components/Kachel'
   import axios from 'axios';
 
-  const API_URL = 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/todos';
+  const API_URL = 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/todos/';
 
   export default {
 
@@ -39,7 +39,7 @@
         todoLists: [],
       }
     },
-    
+
     methods: {
       //fügt eine neue Liste hinzu
       addNewList() {
@@ -47,7 +47,7 @@
           id: undefined,
           name: 'Neue Liste',
         };
-        axios.post(API_URL + '/todoLists', newTodoListItem)
+        axios.post(API_URL + 'todoLists', newTodoListItem)
           .then(res => {
             newTodoListItem.id = res.headers['location'].split('/')[2];
             console.log(newTodoListItem);
@@ -56,9 +56,9 @@
       }
     },
 
-    //axios get request to get all list names 
+    //axios get request to get all list names
     asyncData() {
-      return axios.get(API_URL + '/todoLists').then(res => {
+      return axios.get(API_URL + 'todoLists').then(res => {
         console.log(res.data)
         return {
           todoLists: res.data
