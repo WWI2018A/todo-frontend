@@ -30,7 +30,8 @@
     "nuxt-fontawesome": "^0.4.0",
     "typescript": "^3.8.3",
     "vue": "latest",
-    "vue-multiselect": "^2.1.6"
+    "vue-multiselect": "^2.1.6",
+    "vue-router": "latest"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",

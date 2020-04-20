@@ -10,9 +10,9 @@ Vue.use(VueKeycloakJs, {
     onLoad: 'check-sso'
   },
   config: {
-    url: 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/auth',
-    realm: 'todo',
-    clientId: 'vue-test-app'
+    url: 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/auth/',
+    realm: 'todo-auth',
+    clientId: 'todo-frontend'
   },
   logout: {
     redirectUri: 'https://c8dd8bb4-d64a-4c82-ad6c-f9cd47fe8bd5.ma.bw-cloud-instance.org/'
