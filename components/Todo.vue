@@ -6,7 +6,9 @@
                        :disabled="todoFormDisabled">
                 bis
             </label>
-            <input type="datetime-local" v-model="todoDueDate" v-bind:id="'Date' + todo.id"
+            <input type="datetime-local"
+                   v-model="todoDueDate"
+                   v-bind:id="'Date' + todo.id"
                    :disabled="todoFormDisabled"/>
 
             <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
@@ -45,6 +47,10 @@
             },
         },
 
+        created() {
+            this.$props.todo.dueDate = new Date(this.todo.dueDate);
+        },
+
         data() {
             return {
                 todoDeleted: false,
@@ -58,6 +64,13 @@
 
 
         methods: {
+
+            formatDate(date) {
+                console.log('Date ' + date);
+                return date.substring(0, 19);
+                // return yyyy + '-' + mm + '-' + dd + 'T' + tmpDate.toTimeString();
+            },
+
             /* Function for Click on Edit-Button for single Todo
             Change Icon and enable input-fields
             Save changes, disable input-fields and send values to todo-service */
@@ -66,10 +79,12 @@
                     this.todoFormDisabled = false;
                 } else {
                     this.todoFormDisabled = true;
+                    this.todo.dueDate = this.todoDueDate;
                     //axios put request to modify the content and the duedate of the todo
-                    this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ".000Z";
+                    // this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ".000Z";
                     axios.put(API_URL + this.$props.todo.id, this.todo)
-                        .then(res => {})
+                        .then(res => {
+                        })
                         .catch((error) => {
                             alert("Fehler beim Bearbeiten des ToDos aufgetreten.")
                         })
