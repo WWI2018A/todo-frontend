@@ -60,7 +60,7 @@
         methods: {
             /* Function for Click on Edit-Button for single Todo
             Change Icon and enable input-fields
-            Save changes, disable input-fields an send values to todo-service */
+            Save changes, disable input-fields and send values to todo-service */
             editTodo() {
                 if (this.todoFormDisabled) {
                     this.todoFormDisabled = false;
@@ -68,8 +68,7 @@
                     // post an to do service schicken
                     this.todoFormDisabled = true;
                     //axios put request to modify the content and the duedate of the todo
-                    this.todo.dueDate = document.getElementById('Date' + this.todo.id) + ".000Z";
-                    console.log(document.getElementById('Date' + this.todo.id) + ".000Z")
+                    this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ".000Z";
                     axios.put(API_URL + this.$props.todo.id, this.todo)
                         .then(res => {
                             console.log(res.data)
