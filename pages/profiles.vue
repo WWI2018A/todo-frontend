@@ -132,8 +132,9 @@
         </div>
   
 
+
         <div class="extrainformation">
-        <div class="info_container" data-aos="fade-right">
+        <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
             <p style="font-size: 1.5rem; font-weight: bold;"> Beschreibung </p>
             <!--<i class="fas fa-info-circle" style="font-size: 20px; color: black;"></i>-->
@@ -142,7 +143,7 @@
           <p style="font-size: 1rem;">{{ description }}</p>
         </div>
 
-        <div class="info_container" data-aos="fade-right">
+        <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
             <!--<i class="fas fa-quote-right" style="font-size: 20px; color: black;"></i>-->
             <p style="font-size: 1.5rem; font-weight: bold;"> Zitat </p>
@@ -151,7 +152,7 @@
           <p style="font-size: 1rem;">{{ quote }}</p>
         </div>
 
-        <div class="info_container" data-aos="fade-right">
+        <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
             <p style="font-size: 1.5rem; font-weight: bold;"> Rolle </p>
             <!--<i class="fas fa-user-tag" style="font-size: 20px; color: black;"></i>-->
@@ -160,7 +161,7 @@
           <p style="font-size: 1rem;">{{ roles }}</p>
         </div>
 
-        <div class="info_container" data-aos="fade-right">
+        <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
             <p style="font-size: 1.5rem; font-weight: bold;"> Firma </p>
             <!--<i class="fas fa-tv" style="font-size: 20px; color: black;"></i>-->
@@ -169,7 +170,7 @@
           <p style="font-size: 1rem;">{{ company }}</p>
         </div>
 
-        <div class="info_container" data-aos="fade-right">
+        <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
             <p style="font-size: 1.5rem; font-weight: bold;"> Betriebssysteme </p>
             <!--<i class="fas fa-quote-right" style="font-size: 20px; color: black;"></i>-->
@@ -179,8 +180,9 @@
               <i v-for="os_icon in os_icon" v-bind:class="os_icon" style="font-size: 20px; color: black; margin-left: 5px;"></i>
           </div>
         </div>
-
         </div>
+        </div>
+
 
     </div>
   </div>
@@ -265,7 +267,7 @@ export default {
           profiles:res.data
         }
       })
-    },
+  },
     methods: {
 
         onFileSelected(event) {
@@ -368,7 +370,6 @@ export default {
       AOS.init()
     },
     mounted() {
-    
     this.profilePicture = this.profiles[0].profilePicture;
     this.profileWallpaper = this.profiles[0].profileWallpaper;
     this.company = this.profiles[0].company;
@@ -636,9 +637,6 @@ export default {
 }
 
 
-
-
-
 .maininformation {
     position: absolute;
     top: 570px;
@@ -661,15 +659,11 @@ export default {
 }
 
 .info_container {
+  margin-top: 40px;
   width: 60vw;
   padding: 20px;
   padding-top: 40px;
   margin-bottom: 70px;
-  background-color: rgb(255, 255, 255);
-
-  -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
-    -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
-    box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
 }
 
 .infoicon {
@@ -684,16 +678,22 @@ export default {
   -webkit-mask-image: linear-gradient(to left, transparent 0%, black 80%);
     mask-image: linear-gradient(to left, transparent 0%, black 80%);
 }
-.extrainformation {
+
+
+.extrainformation{
     position: absolute;
     top: 800px;
-    left: 15vw;
+    left: 20vw;
     z-index: 1;
-    width: 70vw;
+    width: 60vw;
     padding-top: 20px;
-    padding-bottom: 20px;
     padding-left: 50px;
-    margin-bottom: 20px; 
+    margin-bottom: 50px; 
+    background-color: white;
+    
+    -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+    box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
 }
 
 .editbutton:hover {
