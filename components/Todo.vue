@@ -65,13 +65,13 @@
                 if (this.todoFormDisabled) {
                     this.todoFormDisabled = false;
                 } else {
-                    // post an to do service schicken
                     this.todoFormDisabled = true;
                     //axios put request to modify the content and the duedate of the todo
                     this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ".000Z";
                     axios.put(API_URL + this.$props.todo.id, this.todo)
-                        .then(res => {
-                            console.log(res.data)
+                        .then(res => {})
+                        .catch((error) => {
+                            alert("Fehler beim Bearbeiten des ToDos aufgetreten.")
                         })
                 }
 
@@ -81,11 +81,12 @@
             Send Delete-Request to todo-service and delete this Todo in frontend */
             deleteTodo() {
                 //axios delete request to delete the todo
-                console.log(API_URL + this.todo.id);
                 axios.delete(API_URL + this.todo.id)
                     .then((res) => {
-                        console.log(res.data);
                         this.todoDeleted = true;
+                    })
+                    .catch((error) => {
+                        lert("Fehler beim Löschen des ToDos aufgetreten.")
                     })
             },
 
@@ -93,10 +94,13 @@
             Change checked/ unchecked status and send new status to todo-service */
             updateCheck() {
                 this.todo.status = this.todoChecked ? 'UNCHECKED' : 'COMPLETED';
-                console.log(this.todo);
+                //axios put request to modify the status of the todo
                 axios.put(API_URL + this.$props.todo.id, this.todo)
                     .then((res) => {
                         this.todoChecked = !this.todoChecked;
+                    })
+                    .catch((error) => {
+                        alert("Fehler beim Bearbeiten des Status vom ToDo aufgetreten.")
                     })
             },
         }

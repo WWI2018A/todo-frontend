@@ -69,22 +69,27 @@
           this.buttonLabel = "Speichern";
         } else {
           this.todoListFormDisabled = true;
-          // post an to do service schicken
           this.buttonLabel = "Bearbeiten";
-          //axios put request to modify the content and the duedate of the todo
-          console.log(this.todoList);
+          //axios put request to modify the list name
           axios.put(API_URL + '/todoLists/' + this.todoList.id, this.todoList, {}
           ).then(res => {
           })
+          .catch((error) => {
+            alert("Fehler beim Bearbeiten des Listennamen aufgetreten.")
+        })
         }
       },
 
       deleteList() {
+        //axios delete request to delete the list
+        //If successful, return to the lists view page
         axios.delete(API_URL + '/todoLists/' + this.todoList.id)
           .then(function (res) {
-            console.log(res.data.name);
             history.go(-1);
           })
+          .catch((error) => {
+            alert("Fehler beim Löschen der Liste aufgetreten.")
+        })
       },
 
       addTodo() {
@@ -98,15 +103,13 @@
           status: undefined,
           content: undefined,
         };
-        console.log(API_URL);
         //axios post request to add a new todo
         axios.post(API_URL, newTodo)
           .then(res => {
             newTodo.id = res.headers['location'].split('/')[2]
             this.todos.push(newTodo);
-            console.log(newTodo);
           }).catch((error) => {
-            alert(error)
+            alert("Fehler beim Erstellen eines ToDos aufgetreten.")
         })
       },
 
@@ -114,7 +117,8 @@
         history.go(-1);
       }
     },
-
+    
+    //axios get request to get the list name and the tasks of the list
     async asyncData({params}) {
       return axios.all([
         axios.get(API_URL + '/todoLists/' + params.id),
@@ -124,9 +128,8 @@
           todoList: responses[0].data,
           todos: responses[1].data,
         }
-        // use/access the results
       })).catch(errors => {
-        // react on errors.
+        alert("Fehler beim Aufruf des Listennamens und/ oder der ToDos aufgetreten.")
       })
     }
   }

@@ -47,23 +47,28 @@
           id: undefined,
           name: 'Neue Liste',
         };
+        //axios post request to add a new list
         axios.post(API_URL + 'todoLists', newTodoListItem)
           .then(res => {
             newTodoListItem.id = res.headers['location'].split('/')[2];
-            console.log(newTodoListItem);
             this.todoLists.push(newTodoListItem);
           })
+          .catch((error) => {
+            alert("Fehler beim Erstellen einer Liste aufgetreten.")
+        })
       }
     },
 
     //axios get request to get all list names
     asyncData() {
       return axios.get(API_URL + 'todoLists').then(res => {
-        console.log(res.data)
         return {
           todoLists: res.data
         };
-      });
+      })
+      .catch((error) => {
+            alert("Fehler beim Aufruf der Listen aufgetreten.")
+        })
     }
   }
 </script>
