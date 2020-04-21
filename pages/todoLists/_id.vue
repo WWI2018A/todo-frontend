@@ -94,7 +94,7 @@
           createdDate: undefined,
           lastModifiedDate: undefined,
           userId: undefined,
-          dueDate: undefined,
+          dueDate: new Date().toISOString(),
           status: undefined,
           content: undefined,
         };
