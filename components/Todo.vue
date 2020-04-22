@@ -100,7 +100,7 @@
                         this.todoDeleted = true;
                     })
                     .catch((error) => {
-                        lert("Fehler beim Löschen des ToDos aufgetreten.")
+                        alert("Fehler beim Löschen des ToDos aufgetreten.")
                     })
             },
 

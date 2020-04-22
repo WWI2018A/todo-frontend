@@ -49,7 +49,6 @@
 
     data() {
       return {
-        buttonLabel: "Bearbeiten",
         todoList: {
           id: String,
           createdDate: Date,
@@ -66,10 +65,8 @@
       editListName() {
         if (this.todoListFormDisabled) {
           this.todoListFormDisabled = false;
-          this.buttonLabel = "Speichern";
         } else {
           this.todoListFormDisabled = true;
-          this.buttonLabel = "Bearbeiten";
           //axios put request to modify the list name
           axios.put(API_URL + '/todoLists/' + this.todoList.id, this.todoList, {}
           ).then(res => {
@@ -117,7 +114,7 @@
         history.go(-1);
       }
     },
-    
+
     //axios get request to get the list name and the tasks of the list
     async asyncData({params}) {
       return axios.all([
