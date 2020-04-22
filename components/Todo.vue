@@ -1,29 +1,30 @@
 <template>
-    <div v-if="!todoDeleted">
-        <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id" v-b-tooltip.hover
-               title="Todo abhaken">
-        <label>
-            <input type="text" class="todoContent" v-model="todo.content" v-bind:id="'ToDo' + todo.id"
-                   :disabled="todoFormDisabled">
-            bis
-        </label>
-        <label>
+    <li v-if="!todoDeleted">
+        <div>
+            <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id" v-b-tooltip.hover
+                   title="Todo abhaken">
+            <label>
+                <input type="text" class="todoContent" v-model="todo.content" v-bind:id="'ToDo' + todo.id"
+                       :disabled="todoFormDisabled">
+                bis
+            </label>
             <input type="datetime-local"
                    v-model="todoDueDate"
                    v-bind:id="'Date' + todo.id"
                    :disabled="todoFormDisabled"/>
-        </label>
-        <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
-               v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken" checked>
-        <button type="button" class="btn editbutton" v-on:click="editTodo"
-                v-bind:id="'edit'+ todo.id"
-                v-b-tooltip.hover title="Todo bearbeiten">
-            <i v-bind:id="'icon'+ todo.id" class="fas fa-edit"></i>
-        </button>
-        <button type="button" class="btn editbutton" v-on:click="deleteTodo" v-b-tooltip.hover
-                title="Todo löschen">
-            <i class="fas fa-trash-alt"></i></button>
-    </div>
+
+            <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
+                   v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken" checked>
+            <button type="button" class="btn editbutton" v-on:click="editTodo"
+                    v-bind:id="'edit'+ todo.id"
+                    v-b-tooltip.hover title="Todo bearbeiten">
+                <i v-bind:id="'icon'+ todo.id" class="fas fa-edit"></i>
+            </button>
+            <button type="button" class="btn editbutton" v-on:click="deleteTodo" v-b-tooltip.hover
+                    title="Todo löschen">
+                <i class="fas fa-trash-alt"></i></button>
+        </div>
+    </li>
 </template>
 
 <script>
@@ -70,12 +71,12 @@
             editTodo() {
                 if (this.todoFormDisabled) {
                     this.todoFormDisabled = false;
-                    document.getElementById('icon' + this.todo.id).classList.remove('fa-edit');
-                    document.getElementById('icon' + this.todo.id).classList.add('fa-save');
+                    document.getElementById('icon'+this.todo.id).classList.remove('fa-edit');
+                    document.getElementById('icon'+this.todo.id).classList.add('fa-save');
                 } else {
                     this.todoFormDisabled = true;
-                    document.getElementById('icon' + this.todo.id).classList.add('fa-edit');
-                    document.getElementById('icon' + this.todo.id).classList.remove('fa-save');
+                    document.getElementById('icon'+this.todo.id).classList.add('fa-edit');
+                    document.getElementById('icon'+this.todo.id).classList.remove('fa-save');
                     this.todo.dueDate = this.todoDueDate;
                     //axios put request to modify the content and the duedate of the todo
                     // this.todo.dueDate = document.getElementById('Date' + this.todo.id).value + ".000Z";
