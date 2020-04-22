@@ -458,6 +458,8 @@ export default {
     AOS.init();
   },
   mounted() {
+
+    if(this.profiles !== undefined){
     this.profilePicture = this.profiles[0].profilePicture;
     this.profileWallpaper = this.profiles[0].profileWallpaper;
     this.company = this.profiles[0].company;
@@ -479,6 +481,10 @@ export default {
     for (var i = 0; i < this.profiles[0].social.length; i++) {
       this.social_name[i] = this.profiles[0].social[i];
       this.social_icon[i] = this.profiles[0].social_icons[i];
+    }
+    }else{
+      this.prename = "404:"
+      this.name = "Kein Profil gefunden"
     }
   }
 };
