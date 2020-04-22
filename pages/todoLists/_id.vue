@@ -7,8 +7,7 @@
         <label>
           <input type="text" class="listName" v-model="todoList.name" id="listid" :disabled="todoListFormDisabled"/>
           <button type="button" class="btn editbutton" v-on:click="editListName" v-b-tooltip.hover
-                  title="Listenname bearbeiten"><i id='icon' class="fas"
-                                                   :class="todoListFormDisabled ? 'fa-edit' : 'fa-save'"></i>
+                  title="Listenname bearbeiten"><i id='icon' class="fas fa-edit"></i>
           </button>
           <button type="button" class="btn editbutton" v-on:click="deleteList" v-b-tooltip.hover title="Liste löschen">
             <i class="fas fa-trash-alt"></i></button>
@@ -20,11 +19,8 @@
       </ul>
       <div>
         <form>
-          <!-- <button type="button" class="btn editbutton" v-on:click="pageBack"><i class="fas fa-arrow-left"></i></button> -->
           <button type="button" class="btn editbutton" v-on:click="addTodo" v-b-tooltip.hover
                   title="Neues Todo hinzufügen"><i class="fas fa-plus-circle" style="font-size: 20px;"></i></button>
-          <!-- <button type="button" class="btn editbutton" v-on:click="editListName"><i id='icon' class="fas fa-edit"></i></button>
-          <button type="button" class="btn editbutton" v-on:click="deleteList"><i class="fas fa-trash-alt"></i></button> -->
         </form>
       </div>
     </div>
@@ -65,15 +61,19 @@
       editListName() {
         if (this.todoListFormDisabled) {
           this.todoListFormDisabled = false;
+          document.getElementById('icon').classList.remove('fa-edit');
+          document.getElementById('icon').classList.add('fa-save');
         } else {
           this.todoListFormDisabled = true;
+          document.getElementById('icon').classList.remove('fa-save');
+          document.getElementById('icon').classList.add('fa-edit');
           //axios put request to modify the list name
           axios.put(API_URL + '/todoLists/' + this.todoList.id, this.todoList, {}
           ).then(res => {
           })
-          .catch((error) => {
-            alert("Fehler beim Bearbeiten des Listennamen aufgetreten.")
-        })
+            .catch((error) => {
+              alert("Fehler beim Bearbeiten des Listennamen aufgetreten.")
+            })
         }
       },
 
@@ -86,7 +86,7 @@
           })
           .catch((error) => {
             alert("Fehler beim Löschen der Liste aufgetreten.")
-        })
+          })
       },
 
       addTodo() {
@@ -106,7 +106,7 @@
             newTodo.id = res.headers['location'].split('/')[2]
             this.todos.push(newTodo);
           }).catch((error) => {
-            alert("Fehler beim Erstellen eines ToDos aufgetreten.")
+          alert("Fehler beim Erstellen eines ToDos aufgetreten.")
         })
       },
 
