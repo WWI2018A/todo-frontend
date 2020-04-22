@@ -280,7 +280,6 @@ export default {
   },
   data() {
     return {
-      profiles: [],
       name: "Name",
       prename: "Vorname",
       roles: "Rolle...",
@@ -334,12 +333,8 @@ export default {
     };
   },
   asyncData() {
-    return axios
-      .get(
-        "https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/"
-      )
-      .then(res => {
-        //return axios.get('http://193.196.54.93:3000/profiles/').then(res => {
+    return axios.get("https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/").then(res => {
+    //return axios.get('http://193.196.54.93:3000/profiles/').then(res => {
         return {
           profiles: res.data
         };
@@ -463,7 +458,7 @@ export default {
     AOS.init();
   },
   mounted() {
-    this.profilePicture = this.profiles.profilePicture;
+    this.profilePicture = this.profiles[0].profilePicture;
     this.profileWallpaper = this.profiles[0].profileWallpaper;
     this.company = this.profiles[0].company;
     this.name = this.profiles[0].name;
