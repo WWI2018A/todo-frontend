@@ -15,7 +15,7 @@ Vue.use(VueKeycloakJs, {
     // clientId: 'vue-test-app'
     url: 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/auth',
     realm: 'todo-auth',
-    clientId: 'todo-frontend-dev'
+    clientId: 'todo-frontend'
   },
   logout: {
     redirectUri: 'http://localhost:3000'
