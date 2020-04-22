@@ -336,7 +336,7 @@ export default {
   asyncData() {
     return axios
       .get(
-        "http://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/"
+        "https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/"
       )
       .then(res => {
         //return axios.get('http://193.196.54.93:3000/profiles/').then(res => {
@@ -360,7 +360,7 @@ export default {
       };
       axios
         .post(
-          "http://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/imageupload/profilepicture",
+          "https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/imageupload/profilepicture",
           //axios.post('http://193.196.54.93:3000/api/v1/profiles/imageupload/profilepicture',
           fd,
           {
@@ -387,7 +387,7 @@ export default {
       };
       axios
         .post(
-          "http://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/imageupload/wallpaper",
+          "https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/imageupload/wallpaper",
           //axios.post('http://193.196.54.93:3000/api/v1/profiles/imageupload/wallpaper',
           fd,
           {
@@ -426,7 +426,7 @@ export default {
       }
       axios
         .put(
-          "http://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/",
+          "https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/",
           //axios.put('http://193.196.54.93:3000/api/v1/profiles/',
           {
             uid: this.uid,
