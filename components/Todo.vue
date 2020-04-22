@@ -1,6 +1,7 @@
 <template>
-    <li v-if="!todoDeleted">
-        <div>
+    <div v-if="!todoDeleted">
+            <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
+                   v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken" checked>
             <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id" v-b-tooltip.hover
                    title="Todo abhaken">
             <label>
@@ -13,8 +14,6 @@
                    v-bind:id="'Date' + todo.id"
                    :disabled="todoFormDisabled"/>
 
-            <input type="checkbox" v-if="todo.status === 'COMPLETED'" v-on:click="updateCheck"
-                   v-bind:id="'Check' + todo.id" v-b-tooltip.hover title="Todo abhaken" checked>
             <button type="button" class="btn editbutton" v-on:click="editTodo"
                     v-bind:id="'edit'+ todo.id"
                     v-b-tooltip.hover title="Todo bearbeiten">
@@ -23,8 +22,7 @@
             <button type="button" class="btn editbutton" v-on:click="deleteTodo" v-b-tooltip.hover
                     title="Todo löschen">
                 <i class="fas fa-trash-alt"></i></button>
-        </div>
-    </li>
+    </div>
 </template>
 
 <script>
