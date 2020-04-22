@@ -30,8 +30,6 @@
 <script>
   import axios from "axios";
   import Todo from "../../components/Todo";
-  import TodoListItem from "../../components/TodoListItem";
-  import {routerOptions} from "../../.nuxt/router";
 
   const API_URL = 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/todos/';
 
