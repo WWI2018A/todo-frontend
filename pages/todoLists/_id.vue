@@ -43,8 +43,7 @@
     name: "todoLists",
 
     components: {
-      Todo,
-      TodoListItem
+      Todo
     },
 
     data() {
