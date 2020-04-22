@@ -424,7 +424,6 @@ export default {
           "https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/",
           //axios.put('http://193.196.54.93:3000/api/v1/profiles/',
           {
-            uid: this.uid,
             name: this.name,
             prename: this.prename,
             company: this.company,
