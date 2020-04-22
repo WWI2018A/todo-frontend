@@ -13,9 +13,9 @@ Vue.use(VueKeycloakJs, {
     // url: 'https://9bedecec-b4fa-4c99-920a-ad988c144210.ma.bw-cloud-instance.org:8443/auth/',
     // realm: 'todo',
     // clientId: 'vue-test-app'
-    url: 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/auth/',
+    url: 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/auth',
     realm: 'todo-auth',
-    clientId: 'todo-frontend'
+    clientId: 'todo-frontend-dev'
   },
   logout: {
     redirectUri: 'http://localhost:3000'
