@@ -135,9 +135,8 @@
         transform: scale(1.2);
     }
 
-    input[type="checkbox"] { /* change "blue" browser chrome to yellow */
+    input[type="checkbox"] {
         filter: invert(100%) hue-rotate(200deg) brightness(1.9);
-        /* filter: invert(0%) hue-rotate(360deg) brightness(1.25); */
     }
 
     input[type="checkbox"]:hover {

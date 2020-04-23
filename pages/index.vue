@@ -43,7 +43,6 @@
 .center h2 {
   font-size: x-large;
   margin-top: 20px;
-  /* color: rgb(159, 186, 201); */
   color: rgb(132, 159, 174);
 }
 

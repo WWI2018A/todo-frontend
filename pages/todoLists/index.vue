@@ -1,8 +1,5 @@
 <template>
   <section class="todoLists">
-    <!--    <ul>-->
-    <!--      <TodoListItem v-for="todoList in todoLists" v-bind:todoList="todoList" />-->
-    <!--    </ul>-->
     <div class="topRow">
       <button class="btn addbutton" v-on:click="addNewList" v-b-tooltip.hover title="Neue Liste hinzufügen"><i
         class="fas fa-plus" style="font-size: 30px;"></i></button>
@@ -36,12 +33,13 @@
     },
     data() {
       return {
-        todoLists: [],
+        todoLists: [],  // returns an Array with all todoLists
       }
     },
 
     methods: {
-      //fügt eine neue Liste hinzu
+      /* Function for Click on Plus-Button for new List ("Kachel")
+      Send Post-Request to todo-service and add this List ("Kachel") in frontend */
       addNewList() {
         let newTodoListItem = {
           id: undefined,
@@ -81,7 +79,6 @@
     background-position: bottom;
     justify-content: center;
     align-items: flex-start;
-
     margin: 10px 0 0 10px;
     width: 100%;
     float: left;
