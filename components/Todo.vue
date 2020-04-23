@@ -5,7 +5,7 @@
             <input type="checkbox" v-else v-on:click="updateCheck" v-bind:id="'Check' + todo.id" v-b-tooltip.hover
                    title="Todo abhaken">
             <label>
-                <input type="text" class="todoContent" v-model="todo.content" v-bind:id="'ToDo' + todo.id"
+                <input type="text" placeholder="Todo eingeben" class="todoContent" v-model="todo.content" v-bind:id="'ToDo' + todo.id"
                        :disabled="todoFormDisabled">
                 bis
             </label>

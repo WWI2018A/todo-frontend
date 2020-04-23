@@ -5,7 +5,7 @@
     <div class="center">
       <h1>
         <label>
-          <input type="text" class="listName" v-model="todoList.name" id="listid" :disabled="todoListFormDisabled"/>
+          <input type="text" placeholder="Listenname eingeben" class="listName" v-model="todoList.name" id="listid" :disabled="todoListFormDisabled"/>
           <button type="button" class="btn editbutton" v-on:click="editListName" v-b-tooltip.hover
                   title="Listenname bearbeiten"><i id='icon' class="fas fa-edit"></i>
           </button>
@@ -79,7 +79,7 @@
       },
 
       /* Function for Click on Delete-Button for whole List
-      Send Delete-Request to todo-service and return to the Listoverview 
+      Send Delete-Request to todo-service and return to the Listoverview
       without reloading the whole page */
       deleteList() {
         //axios delete request to delete the list
@@ -116,7 +116,7 @@
         })
       },
 
-      /* Function for Click on Arrow-Button to return to Listoverview 
+      /* Function for Click on Arrow-Button to return to Listoverview
       without reloading the whole page */
       pageBack() {
         history.go(-1);
