@@ -9,10 +9,11 @@
 
 
 <script>
+  // export Kachel with default values
   export default {
     props: {
       todoList: {
-        id: String,
+        id: String,   // key of each todoList
         createdDate: Date,
         lastModifiedDate: Date,
         userId: String,

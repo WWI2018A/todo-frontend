@@ -19,11 +19,8 @@
       </ul>
       <div>
         <form>
-          <!-- <button type="button" class="btn editbutton" v-on:click="pageBack"><i class="fas fa-arrow-left"></i></button> -->
           <button type="button" class="btn editbutton" v-on:click="addTodo" v-b-tooltip.hover
                   title="Neues Todo hinzufügen"><i class="fas fa-plus-circle" style="font-size: 20px;"></i></button>
-          <!-- <button type="button" class="btn editbutton" v-on:click="editListName"><i id='icon' class="fas fa-edit"></i></button>
-          <button type="button" class="btn editbutton" v-on:click="deleteList"><i class="fas fa-trash-alt"></i></button> -->
         </form>
       </div>
     </div>
@@ -33,7 +30,6 @@
 <script>
   import axios from "axios";
   import Todo from "../../components/Todo";
-  // import TodoListItem from "../../components/TodoListItem";
   import {routerOptions} from "../../.nuxt/router";
 
   const API_URL = 'https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/todos/';
@@ -54,12 +50,15 @@
           userId: String,
           name: String
         },
-        todos: [],
+        todos: [],  // returns an Array with all todos
         todoListFormDisabled: true,
       };
     },
 
     methods: {
+      /* Function for Click on Edit-Button for List-Name
+      Change Icon and enable input-field
+      Save changes, disable input-field and send value to todo-service */
       editListName() {
         if (this.todoListFormDisabled) {
           this.todoListFormDisabled = false;
@@ -79,6 +78,9 @@
         }
       },
 
+      /* Function for Click on Delete-Button for whole List
+      Send Delete-Request to todo-service and return to the Listoverview 
+      without reloading the whole page */
       deleteList() {
         //axios delete request to delete the list
         //If successful, return to the lists view page
@@ -91,6 +93,8 @@
         })
       },
 
+      /* Function for Click on Plus-Button to add a new Todo
+      Send Post-Request to todo-service and delete add Todo in frontend */
       addTodo() {
         let newTodo = {
           id: undefined,
@@ -112,6 +116,8 @@
         })
       },
 
+      /* Function for Click on Arrow-Button to return to Listoverview 
+      without reloading the whole page */
       pageBack() {
         history.go(-1);
       }
