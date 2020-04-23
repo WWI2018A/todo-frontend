@@ -88,11 +88,6 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="roles">Rolle:</label>
-                  <input type="text" class="form-control" id="roles" name="roles" v-model="roles" />
-                </div>
-
-                <div class="form-group">
                   <label for="description">Beschreibung:</label>
                   <input
                     type="text"
@@ -195,6 +190,7 @@
                   <button
                     class="btn btn-primary applySettingsButton roundCorners gradient330Deg"
                     type="submit"
+                    data-dismiss="modal"
                     style="margin-top: 20px"
                   >Apply Changes</button>
                 </div>
@@ -212,7 +208,6 @@
         <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
             <p style="font-size: 1.5rem; font-weight: bold;">Beschreibung</p>
-            <!--<i class="fas fa-info-circle" style="font-size: 20px; color: black;"></i>-->
           </div>
           <br />
           <p style="font-size: 1rem;">{{ description }}</p>
@@ -220,7 +215,6 @@
 
         <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
-            <!--<i class="fas fa-quote-right" style="font-size: 20px; color: black;"></i>-->
             <p style="font-size: 1.5rem; font-weight: bold;">Zitat</p>
           </div>
           <br />
@@ -230,7 +224,6 @@
         <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
             <p style="font-size: 1.5rem; font-weight: bold;">Rolle</p>
-            <!--<i class="fas fa-user-tag" style="font-size: 20px; color: black;"></i>-->
           </div>
           <br />
           <p style="font-size: 1rem;">{{ roles }}</p>
@@ -239,7 +232,6 @@
         <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
             <p style="font-size: 1.5rem; font-weight: bold;">Firma</p>
-            <!--<i class="fas fa-tv" style="font-size: 20px; color: black;"></i>-->
           </div>
           <br />
           <p style="font-size: 1rem;">{{ company }}</p>
@@ -248,7 +240,6 @@
         <div class="info_container" data-aos="fade-left">
           <div class="infoicon">
             <p style="font-size: 1.5rem; font-weight: bold;">Betriebssysteme</p>
-            <!--<i class="fas fa-quote-right" style="font-size: 20px; color: black;"></i>-->
           </div>
           <br />
           <div class="row">
@@ -280,6 +271,7 @@ export default {
   },
   data() {
     return {
+      //default data if no Profile was found
       name: "Name",
       prename: "Vorname",
       roles: "Rolle...",
@@ -333,6 +325,7 @@ export default {
     };
   },
   asyncData() {
+    //GET Request to get Data from Profile Service, Header is attached automatically
     return axios.get("https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/").then(res => {
         return {
           profiles: res.data
@@ -344,6 +337,7 @@ export default {
       });
   },
   methods: {
+    //Method when a new Profile Page was selected
     onFileSelected(event) {
       let fd = new FormData();
       fd.append("file-input", event.target.files[0]);
@@ -355,7 +349,6 @@ export default {
       axios
         .post(
           "https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/imageupload/profilepicture",
-          //axios.post('http://193.196.54.93:3000/api/v1/profiles/imageupload/profilepicture',
           fd,
           {
             headers: {
@@ -371,6 +364,7 @@ export default {
           alert("Fehler beim Hochladen des Profilbilds aufgetreten.");
         });
     },
+    //Method when a new Wallpaper was selected
     onWallpaperSelected(event) {
       let fd = new FormData();
       fd.append("file-input", event.target.files[0]);
@@ -382,7 +376,6 @@ export default {
       axios
         .post(
           "https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/imageupload/wallpaper",
-          //axios.post('http://193.196.54.93:3000/api/v1/profiles/imageupload/wallpaper',
           fd,
           {
             headers: {
@@ -398,6 +391,7 @@ export default {
           alert("Fehler beim Hochladen des Hintergrundbilds aufgetreten.");
         });
     },
+    //Define which Data will be sent to Profile Service to Update the Profile
     onSubmit(event) {
       this.os_name = [];
       this.os_icon = [];
@@ -428,7 +422,6 @@ export default {
             company: this.company,
             quote: this.quote,
             description: this.description,
-            roles: this.roles,
             os: this.os_name,
             os_icons: this.os_icon,
             skills: this.skill_name,
@@ -453,10 +446,12 @@ export default {
     }
   },
   created() {
+    //Initialize Animate on Scroll to enable scrolling effects
     AOS.init();
   },
   mounted() {
-
+    //Script that will be executed when page is mounted
+    //Overwrite default data if a Profile was found
     if(this.profiles !== undefined){
     this.profilePicture = this.profiles[0].profilePicture;
     this.profileWallpaper = this.profiles[0].profileWallpaper;
@@ -481,14 +476,15 @@ export default {
       this.social_icon[i] = this.profiles[0].social_icons[i];
     }
     }else{
-      this.prename = "404:"
-      this.name = "Kein Profil gefunden"
+      this.prename = "Willkommen"
+      this.name = "auf ToDo"
     }
   }
 };
 </script>
 
 <style scoped>
+/*General Specification on Profile page*/
 .profilepage {
   font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond,
     "Times New Roman", serif;
@@ -497,7 +493,7 @@ export default {
   top: 50px;
 }
 
-/*Skillsection */
+/*Skillsection that contains skills and profilePicture*/
 .skilllogos {
   clip-path: circle(35% at 50% 50%);
   width: 300px;
@@ -516,18 +512,18 @@ export default {
   transform: scale(1.1);
   background-color: rgba(255, 255, 255, 0.5);
 }
-
+/*Skill logos*/
 .logo {
   position: absolute;
   top: 0px;
   right: 0px;
   transition: ease-out 0.3s;
 }
-
 .logo:hover {
   opacity: 0;
 }
 
+/*Customization of each skill*/
 .skill1 {
   z-index: 4;
   position: absolute;
@@ -682,13 +678,11 @@ export default {
   outline: none;
 }
 
-/*Background*/
-
+/*Background image with masking and fade effects*/
 .profileWallpaper {
   width: 100vw;
   height: 700px;
   z-index: 0;
-  /*clip-path: polygon(0 0, 100% 0, 100% 30%, 0 70%);*/
   position: absolute;
   top: 0;
   left: 0;
@@ -697,6 +691,8 @@ export default {
   -webkit-mask-image: linear-gradient(350deg, transparent 30%, black 50%);
   mask-image: linear-gradient(350deg, transparent 30%, black 50%);
 }
+
+/*The main ProfilPicture in the middle of the page*/
 .profilePictureLarge {
   width: 210px;
   height: 210px;
@@ -709,6 +705,8 @@ export default {
   left: 45px;
   transition: all ease-in-out 0.3s;
 }
+
+/*Small Preview in Modal*/
 .profilePictureSmall {
   width: 210px;
   height: 210px;
@@ -716,12 +714,15 @@ export default {
   border-radius: 50%;
   margin: 0 auto;
 }
+
+/*Small Preview in Modal*/
 .profileWallpaperSmall {
   width: 400px;
   height: 210px;
   object-fit: cover;
 }
 
+/* Section that displays the prename and name*/
 .displayname {
   text-align: center;
   margin: 0 auto;
@@ -730,6 +731,7 @@ export default {
   border-bottom: 1px solid grey;
 }
 
+/*Icons for the social networks*/
 .displaysocialnetworks {
   margin: 0 auto;
   margin-top: 10px;
@@ -738,6 +740,7 @@ export default {
   color: black;
 }
 
+/*Container that contains Name, Prename and Social Networks*/
 .maininformation {
   position: absolute;
   top: 570px;
@@ -752,23 +755,47 @@ export default {
   box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
 }
 
+/*Button to edit the profil, also opens modal*/
 .editbutton {
   position: absolute;
   top: 5px;
   right: 5px;
   color: black;
 }
+.editbutton:hover {
+  transform: scale(1.2);
+}
 
+
+/*COntainer that displays the informations about the User*/
+.extrainformation {
+  position: absolute;
+  top: 800px;
+  left: 20vw;
+  z-index: 1;
+  width: 60vw;
+  padding-top: 20px;
+  padding-left: 5vw;
+  margin-bottom: 50px;
+  background-color: white;
+
+  -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+  -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+  box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
+}
+
+/*Description of each data*/
 .info_container {
   margin-top: 40px;
-  width: 60vw;
+  width: 50vw;
   padding: 20px;
   padding-top: 40px;
   margin-bottom: 70px;
 }
 
+/*data*/
 .infoicon {
-  width: 20vw;
+  width: 40vw;
   padding: 10px;
   padding-bottom: 0px;
   margin-top: -80px;
@@ -780,26 +807,9 @@ export default {
   mask-image: linear-gradient(to left, transparent 0%, black 80%);
 }
 
-.extrainformation {
-  position: absolute;
-  top: 800px;
-  left: 20vw;
-  z-index: 1;
-  width: 60vw;
-  padding-top: 20px;
-  padding-left: 50px;
-  margin-bottom: 50px;
-  background-color: white;
 
-  -webkit-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
-  -moz-box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
-  box-shadow: 10px 10px 18px 4px rgba(92, 92, 92, 0.78);
-}
 
-.editbutton:hover {
-  transform: scale(1.2);
-}
-
+/*Customization of the Dropdowns for OS, Skills and Social Networks*/
 .multiselect {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
