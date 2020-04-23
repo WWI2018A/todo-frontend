@@ -40,7 +40,7 @@
 
             <div class="modal-body center">
               <form @submit.prevent="onSubmit">
-                <h1 style="font-size: 1.5rem">Zum Bearbeiten Bild klicken</h1>
+                <h1 style="font-size: 1.5rem">{{profilepicturemessage}}</h1>
                 <label for="file-input">
                   <img
                     v-bind:src="profilePicture"
@@ -48,6 +48,7 @@
                     class="profilePictureSmall"
                   />
                 </label>
+                <h1 style="font-size: 1.5rem">{{wallpapermessage}}</h1>
                 <input
                   type="file"
                   name="file-input"
@@ -190,9 +191,8 @@
                   <button
                     class="btn btn-primary applySettingsButton roundCorners gradient330Deg"
                     type="submit"
-                    data-dismiss="modal"
                     style="margin-top: 20px"
-                  >Apply Changes</button>
+                  >{{buttonmessage}}</button>
                 </div>
               </form>
             </div>
@@ -321,7 +321,10 @@ export default {
         { name: "LinkedIn", icon: "fab fa-linkedin" }
       ],
       profilePicture: "/images/Example.jpg",
-      profileWallpaper: "/images/Wallpaper.jpg"
+      profileWallpaper: "/images/Wallpaper.jpg",
+      buttonmessage: "Änderungen speichern",
+      profilepicturemessage: "Zum Bearbeiten anklicken",
+      wallpapermessage: "Zum Bearbeiten anklicken"
     };
   },
   asyncData() {
@@ -332,13 +335,14 @@ export default {
         };
       })
       .catch(error => {
+        this.buttonmessage = "Profil anlegen";
         console.log(error);
-        alert("Fehler beim Aufruf des Profils aufgetreten.");
       });
   },
   methods: {
     //Method when a new Profile Page was selected
     onFileSelected(event) {
+      this.profilepicturemessage = "Uploading..."
       let fd = new FormData();
       fd.append("file-input", event.target.files[0]);
       var reader = new FileReader();
@@ -361,14 +365,17 @@ export default {
         )
         .then(res => {
           this.profilePicture = res.data;
+          this.profilepicturemessage = "Bild geändert"
           console.log(this.profilePicture);
         })
         .catch(error => {
-          alert("Fehler beim Hochladen des Profilbilds aufgetreten.");
+          console.log("Profile Picture Upload did not work")
+          this.profilepicturemessage = "Bild zu groß"
         });
     },
     //Method when a new Wallpaper was selected
     onWallpaperSelected(event) {
+      this.wallpapermessage = "Uploading..."
       let fd = new FormData();
       fd.append("file-input", event.target.files[0]);
       var reader = new FileReader();
@@ -391,10 +398,12 @@ export default {
         )
         .then(res => {
           this.profileWallpaper = res.data;
+          this.wallpapermessage = "Bild geändert"
           console.log(this.profileWallpaper);
         })
         .catch(error => {
-          alert("Fehler beim Hochladen des Hintergrundbilds aufgetreten.");
+          console.log("Wallpaper upload did not work");
+          this.wallpapermessage = "Bild zu groß"
         });
     },
     //Define which Data will be sent to Profile Service to Update the Profile
@@ -421,7 +430,6 @@ export default {
       axios
         .put(
           "https://0f1e94dc-2f46-44c5-8aba-b4cc2da9bfb5.ma.bw-cloud-instance.org/api/v1/profiles/",
-          //axios.put('http://193.196.54.93:3000/api/v1/profiles/',
           {
             name: this.name,
             prename: this.prename,
@@ -444,6 +452,7 @@ export default {
           }
         )
         .then(res => {
+          this.buttonmessage = "Gespeichert";
           console.log(res.data);
         })
         .catch(error => {
