@@ -353,7 +353,10 @@ export default {
           {
             headers: {
               "Content-Type": "multipart/form-data"
-            }
+            },
+            onUploadProgress: uploadEvent => {
+              console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100 + '%'))
+            }          
           }
         )
         .then(res => {
@@ -380,6 +383,9 @@ export default {
           {
             headers: {
               "Content-Type": "multipart/form-data"
+            },
+            onUploadProgress: uploadEvent => {
+              console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100 + '%'))
             }
           }
         )
