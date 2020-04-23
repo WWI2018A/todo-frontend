@@ -7,8 +7,7 @@
         <label>
           <input type="text" class="listName" v-model="todoList.name" id="listid" :disabled="todoListFormDisabled"/>
           <button type="button" class="btn editbutton" v-on:click="editListName" v-b-tooltip.hover
-                  title="Listenname bearbeiten"><i id='icon' class="fas"
-                                                   :class="todoListFormDisabled ? 'fa-edit' : 'fa-save'"></i>
+                  title="Listenname bearbeiten"><i id='icon' class="fas fa-edit"></i>
           </button>
           <button type="button" class="btn editbutton" v-on:click="deleteList" v-b-tooltip.hover title="Liste löschen">
             <i class="fas fa-trash-alt"></i></button>
@@ -64,8 +63,12 @@
       editListName() {
         if (this.todoListFormDisabled) {
           this.todoListFormDisabled = false;
+          document.getElementById('icon').classList.remove('fa-edit');
+          document.getElementById('icon').classList.add('fa-save');
         } else {
           this.todoListFormDisabled = true;
+          document.getElementById('icon').classList.add('fa-edit');
+          document.getElementById('icon').classList.remove('fa-save');
           //axios put request to modify the list name
           axios.put(API_URL + '/todoLists/' + this.todoList.id, this.todoList, {}
           ).then(res => {
