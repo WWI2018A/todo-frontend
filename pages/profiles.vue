@@ -335,7 +335,6 @@ export default {
         };
       })
       .catch(error => {
-        this.buttonmessage = "Profil anlegen";
         console.log(error);
       });
   },
